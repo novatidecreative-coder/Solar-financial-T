@@ -341,7 +341,7 @@
       <span class="timer-part"><span class="value" id="cd-mins">--</span><span class="label">Min</span></span>
       <span class="timer-part"><span class="value" id="cd-secs">--</span><span class="label">Sec</span></span>
     </div>
-    <span class="deadline" id="countdown-deadline">Deadline: April 5 — After this date, solar only via loan or cash (NY State).</span>
+    <span class="deadline" id="countdown-deadline">Deadline: April 5 — After this date, solar only via program or cash (NY State).</span>
   </div>
 
   <div class="toolbar">
@@ -398,7 +398,7 @@
         </div>
       </div>
       <div class="input-group">
-        <label>Loan term (years) — for display only</label>
+        <label>Program term (years) — for display only</label>
         <input type="number" id="solar-term" min="10" max="30" value="25" placeholder="25">
       </div>
       <table class="years-table" id="solar-table">
@@ -553,7 +553,7 @@
         document.getElementById('cd-hours').textContent = '0';
         document.getElementById('cd-mins').textContent = '0';
         document.getElementById('cd-secs').textContent = '0';
-        deadlineEl.textContent = 'NY State incentive has ended. Solar is now available only via loan or cash purchase.';
+        deadlineEl.textContent = 'NY State incentive has ended. Solar is now available only via program or cash purchase.';
         return;
       }
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
