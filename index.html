@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar vs Utility — Financial T-Chart</title>
+  <style>
+    :root {
+      --utility-bg: #fff5f5;
+      --utility-border: #c53030;
+      --utility-accent: #9b2c2c;
+      --utility-dark: #742a2a;
+      --solar-bg: #f0fff4;
+      --solar-border: #276749;
+      --solar-accent: #2f855a;
+      --solar-dark: #22543d;
+      --divider: #2d3748;
+      --break-even: #d69e2e;
+      --text: #1a202c;
+      --muted: #718096;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      background: #edf2f7;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+      color: white;
+      padding: 1rem 1.5rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    header p {
+      margin: 0.25rem 0 0;
+      opacity: 0.9;
+      font-size: 0.9rem;
+    }
+
+    .countdown-banner {
+      background: linear-gradient(90deg, #b45309 0%, #d69e2e 50%, #b45309 100%);
+      color: #1a1a1a;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(180, 83, 9, 0.3);
+    }
+    .countdown-banner .urgency {
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+    }
+    .countdown-banner .timer {
+      display: flex;
+      gap: 0.5rem;
+      align-items: baseline;
+    }
+    .countdown-banner .timer-part {
+      background: rgba(0,0,0,0.2);
+      padding: 0.35rem 0.6rem;
+      border-radius: 6px;
+      font-variant-numeric: tabular-nums;
+      min-width: 2.2ch;
+      text-align: center;
+    }
+    .countdown-banner .timer-part .value {
+      font-size: 1.25rem;
+      font-weight: 800;
+      display: block;
+      line-height: 1.2;
+    }
+    .countdown-banner .timer-part .label {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.9;
+    }
+    .countdown-banner .deadline {
+      font-size: 0.85rem;
+      opacity: 0.95;
+    }
+    .countdown-banner.expired {
+      background: #4a5568;
+      color: white;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0.75rem;
+      background: #e2e8f0;
+      flex-wrap: wrap;
+    }
+    .toolbar button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .btn-print {
+      background: var(--divider);
+      color: white;
+    }
+    .btn-reset {
+      background: white;
+      color: var(--text);
+      border: 1px solid #cbd5e0;
+    }
+    .toolbar button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .t-chart-container {
+      display: grid;
+      grid-template-columns: 1fr 4px 1fr;
+      max-width: 1400px;
+      margin: 0 auto;
+      min-height: calc(100vh - 140px);
+      background: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .panel {
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+    }
+    .panel-utility {
+      background: var(--utility-bg);
+      border-right: 3px solid var(--utility-border);
+    }
+    .panel-solar {
+      background: var(--solar-bg);
+      border-left: 3px solid var(--solar-border);
+    }
+
+    .divider {
+      background: var(--divider);
+      width: 4px;
+    }
+
+    .panel-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid;
+    }
+    .panel-utility .panel-title {
+      color: var(--utility-dark);
+      border-color: var(--utility-border);
+    }
+    .panel-solar .panel-title {
+      color: var(--solar-dark);
+      border-color: var(--solar-border);
+    }
+
+    .input-group {
+      margin-bottom: 1rem;
+    }
+    .input-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .panel-utility .input-group input:focus {
+      border-color: var(--utility-border);
+      outline: none;
+    }
+    .panel-solar .input-group input:focus {
+      border-color: var(--solar-border);
+      outline: none;
+    }
+    .input-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-end;
+    }
+    .input-row .input-group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+    .input-group small {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    .years-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+    .years-table th {
+      text-align: left;
+      padding: 0.4rem 0.5rem;
+      font-weight: 600;
+      border-bottom: 2px solid;
+    }
+    .panel-utility .years-table th {
+      color: var(--utility-dark);
+      border-color: var(--utility-border);
+    }
+    .panel-solar .years-table th {
+      color: var(--solar-dark);
+      border-color: var(--solar-border);
+    }
+    .years-table td {
+      padding: 0.35rem 0.5rem;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .years-table tr.break-even td {
+      background: rgba(214, 158, 46, 0.25);
+      font-weight: 700;
+    }
+    .years-table tr.solar-cheaper td {
+      background: rgba(39, 103, 73, 0.15);
+    }
+    .years-table .num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .summary-box {
+      margin-top: 1.25rem;
+      padding: 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .panel-utility .summary-box {
+      background: rgba(197, 48, 48, 0.12);
+      border: 2px solid var(--utility-border);
+      color: var(--utility-dark);
+    }
+    .panel-solar .summary-box {
+      background: rgba(39, 103, 73, 0.12);
+      border: 2px solid var(--solar-border);
+      color: var(--solar-dark);
+    }
+    .summary-box .label {
+      font-size: 0.8rem;
+      opacity: 0.9;
+      margin-bottom: 0.25rem;
+    }
+    .summary-box .value {
+      font-size: 1.25rem;
+    }
+
+    .savings-banner {
+      grid-column: 1 / -1;
+      background: linear-gradient(90deg, var(--utility-accent), var(--solar-accent));
+      color: white;
+      padding: 1rem 1.5rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .savings-banner .amount {
+      font-size: 1.5rem;
+      margin-left: 0.5rem;
+    }
+    .savings-banner .break-even-note {
+      font-size: 0.85rem;
+      font-weight: 500;
+      opacity: 0.95;
+      margin-top: 0.25rem;
+    }
+
+    .scroll-hint {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .t-chart-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 4px auto;
+      }
+      .divider {
+        width: 100%;
+        height: 4px;
+      }
+      .panel-utility { border-right: none; border-bottom: 3px solid var(--utility-border); }
+      .panel-solar { border-left: none; border-top: 3px solid var(--solar-border); }
+    }
+
+    @media print {
+      body { background: white; }
+      .countdown-banner { display: none; }
+      .toolbar { display: none; }
+      .t-chart-container { box-shadow: none; }
+      .panel { break-inside: avoid; }
+      .years-table { font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Solar vs Utility — Financial T-Chart</h1>
+    <p>25-Year Cost Comparison • Con Edison / PSEG vs Solar</p>
+  </header>
+
+  <div class="countdown-banner" id="countdown-banner">
+    <span class="urgency">⏱ NY State incentive ends soon — lock in your offer before it’s gone.</span>
+    <div class="timer" id="countdown-timer">
+      <span class="timer-part"><span class="value" id="cd-days">--</span><span class="label">Days</span></span>
+      <span class="timer-part"><span class="value" id="cd-hours">--</span><span class="label">Hours</span></span>
+      <span class="timer-part"><span class="value" id="cd-mins">--</span><span class="label">Min</span></span>
+      <span class="timer-part"><span class="value" id="cd-secs">--</span><span class="label">Sec</span></span>
+    </div>
+    <span class="deadline" id="countdown-deadline">Deadline: April 5 — After this date, solar only via loan or cash (NY State).</span>
+  </div>
+
+  <div class="toolbar">
+    <button type="button" class="btn-print" onclick="window.print()">Print / Save PDF</button>
+    <button type="button" class="btn-reset" onclick="resetInputs()">Reset to Defaults</button>
+  </div>
+
+  <div class="t-chart-container">
+    <div class="panel panel-utility">
+      <div class="panel-title">Current Utility Cost</div>
+      <div class="input-group">
+        <label>Monthly electric bill ($)</label>
+        <input type="number" id="utility-monthly" min="0" step="1" value="350" placeholder="e.g. 350">
+      </div>
+      <div class="input-group">
+        <label>Annual rate increase (%)</label>
+        <input type="number" id="utility-increase" min="5" max="10" step="0.1" value="7.5" placeholder="7.5">
+        <small>Range: 5% – 10%</small>
+      </div>
+      <table class="years-table" id="utility-table">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th class="num">Monthly</th>
+            <th class="num">Annual</th>
+            <th class="num">Cumulative</th>
+          </tr>
+        </thead>
+        <tbody id="utility-tbody"></tbody>
+      </table>
+      <div class="summary-box">
+        <div class="label">25-Year Total (Utility)</div>
+        <div class="value" id="utility-total">$0</div>
+      </div>
+      <p class="scroll-hint">Scroll for all 25 years</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="panel panel-solar">
+      <div class="panel-title">Solar Cost</div>
+      <div class="input-group">
+        <label>Monthly solar payment ($)</label>
+        <input type="number" id="solar-monthly" min="0" step="1" value="180" placeholder="e.g. 180">
+      </div>
+      <div class="input-row">
+        <div class="input-group">
+          <label>Annual escalator (%)</label>
+          <input type="number" id="solar-escalator" min="0" max="5" step="0.1" value="2.9" placeholder="2.9">
+        </div>
+        <div class="input-group">
+          <label>Initial cost ($)</label>
+          <input type="number" id="solar-initial" min="0" step="100" value="0" placeholder="Optional">
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Loan term (years) — for display only</label>
+        <input type="number" id="solar-term" min="10" max="30" value="25" placeholder="25">
+      </div>
+      <table class="years-table" id="solar-table">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th class="num">Monthly</th>
+            <th class="num">Annual</th>
+            <th class="num">Cumulative</th>
+          </tr>
+        </thead>
+        <tbody id="solar-tbody"></tbody>
+      </table>
+      <div class="summary-box">
+        <div class="label">25-Year Total (Solar)</div>
+        <div class="value" id="solar-total">$0</div>
+      </div>
+      <p class="scroll-hint">Scroll for all 25 years</p>
+    </div>
+
+    <div class="savings-banner" id="savings-banner">
+      <span>25-Year Savings with Solar:</span>
+      <span class="amount" id="savings-amount">$0</span>
+      <div class="break-even-note" id="break-even-note">Enter values to see break-even year.</div>
+    </div>
+  </div>
+
+  <script>
+    const YEARS = 25;
+
+    function getInputs() {
+      const utilityMonthly = parseFloat(document.getElementById('utility-monthly').value) || 0;
+      const utilityIncrease = Math.min(10, Math.max(5, parseFloat(document.getElementById('utility-increase').value) || 7.5)) / 100;
+      const solarMonthly = parseFloat(document.getElementById('solar-monthly').value) || 0;
+      const solarEscalator = parseFloat(document.getElementById('solar-escalator').value) || 2.9;
+      const solarInitial = parseFloat(document.getElementById('solar-initial').value) || 0;
+      const solarTerm = parseInt(document.getElementById('solar-term').value, 10) || 25;
+      return { utilityMonthly, utilityIncrease, solarMonthly, solarEscalator: solarEscalator / 100, solarInitial, solarTerm };
+    }
+
+    function formatMoney(n) {
+      if (n >= 1000000) return '$' + (n / 1000000).toFixed(1) + 'M';
+      return '$' + Math.round(n).toLocaleString();
+    }
+
+    function formatMonthly(n) {
+      return '$' + (n < 1000 ? n.toFixed(0) : Math.round(n).toLocaleString());
+    }
+
+    function buildRows() {
+      const { utilityMonthly, utilityIncrease, solarMonthly, solarEscalator, solarInitial, solarTerm } = getInputs();
+
+      let utilityMonthlyCur = utilityMonthly;
+      let solarMonthlyCur = solarMonthly;
+      let utilityCum = 0;
+      let solarCum = solarInitial;
+      let breakEvenYear = null;
+
+      const utilityRows = [];
+      const solarRows = [];
+
+      for (let y = 1; y <= YEARS; y++) {
+        const solarPayment = y <= solarTerm ? solarMonthlyCur : 0;
+        const utilityAnnual = utilityMonthlyCur * 12;
+        const solarAnnual = solarPayment * 12;
+        utilityCum += utilityAnnual;
+        solarCum += solarAnnual;
+
+        const isBreakEven = breakEvenYear === null && solarCum <= utilityCum && y > 1;
+        if (isBreakEven) breakEvenYear = y;
+        const solarCheaper = breakEvenYear !== null && y >= breakEvenYear;
+
+        utilityRows.push({
+          year: y,
+          monthly: utilityMonthlyCur,
+          annual: utilityAnnual,
+          cumulative: utilityCum,
+          breakEven: isBreakEven,
+          solarCheaper
+        });
+        solarRows.push({
+          year: y,
+          monthly: solarPayment,
+          annual: solarAnnual,
+          cumulative: solarCum,
+          breakEven: isBreakEven,
+          solarCheaper
+        });
+
+        utilityMonthlyCur *= (1 + utilityIncrease);
+        if (y < solarTerm) solarMonthlyCur *= (1 + solarEscalator);
+      }
+
+      const totalUtility = utilityRows[utilityRows.length - 1].cumulative;
+      const totalSolar = solarRows[solarRows.length - 1].cumulative;
+      const savings = Math.max(0, totalUtility - totalSolar);
+
+      return { utilityRows, solarRows, totalUtility, totalSolar, savings, breakEvenYear };
+    }
+
+    function render() {
+      const { utilityRows, solarRows, totalUtility, totalSolar, savings, breakEvenYear } = buildRows();
+
+      const utilityTbody = document.getElementById('utility-tbody');
+      const solarTbody = document.getElementById('solar-tbody');
+
+      utilityTbody.innerHTML = utilityRows.map(r => {
+        const cls = [r.breakEven && 'break-even', r.solarCheaper && 'solar-cheaper'].filter(Boolean).join(' ');
+        return `<tr class="${cls}"><td>${r.year}</td><td class="num">${formatMonthly(r.monthly)}</td><td class="num">${formatMoney(r.annual)}</td><td class="num">${formatMoney(r.cumulative)}</td></tr>`;
+      }).join('');
+
+      solarTbody.innerHTML = solarRows.map(r => {
+        const cls = [r.breakEven && 'break-even', r.solarCheaper && 'solar-cheaper'].filter(Boolean).join(' ');
+        return `<tr class="${cls}"><td>${r.year}</td><td class="num">${formatMonthly(r.monthly)}</td><td class="num">${formatMoney(r.annual)}</td><td class="num">${formatMoney(r.cumulative)}</td></tr>`;
+      }).join('');
+
+      document.getElementById('utility-total').textContent = formatMoney(totalUtility);
+      document.getElementById('solar-total').textContent = formatMoney(totalSolar);
+      document.getElementById('savings-amount').textContent = formatMoney(savings);
+      document.getElementById('break-even-note').textContent = breakEvenYear
+        ? `Break-even at Year ${breakEvenYear} — solar total becomes lower from year ${breakEvenYear} onward.`
+        : (totalSolar <= totalUtility ? 'Solar is cheaper from year 1.' : 'Enter values to see break-even year.');
+    }
+
+    function resetInputs() {
+      document.getElementById('utility-monthly').value = 350;
+      document.getElementById('utility-increase').value = 7.5;
+      document.getElementById('solar-monthly').value = 180;
+      document.getElementById('solar-escalator').value = 2.9;
+      document.getElementById('solar-initial').value = 0;
+      document.getElementById('solar-term').value = 25;
+      render();
+    }
+
+    function getDeadlineDate() {
+      const now = new Date();
+      let year = now.getFullYear();
+      const april5 = new Date(year, 3, 5, 23, 59, 59, 999);
+      if (now > april5) april5.setFullYear(year + 1);
+      return april5;
+    }
+
+    function updateCountdown() {
+      const deadline = getDeadlineDate();
+      const now = new Date();
+      let diff = deadline - now;
+      const banner = document.getElementById('countdown-banner');
+      const deadlineEl = document.getElementById('countdown-deadline');
+      if (diff <= 0) {
+        banner.classList.add('expired');
+        document.getElementById('cd-days').textContent = '0';
+        document.getElementById('cd-hours').textContent = '0';
+        document.getElementById('cd-mins').textContent = '0';
+        document.getElementById('cd-secs').textContent = '0';
+        deadlineEl.textContent = 'NY State incentive has ended. Solar is now available only via loan or cash purchase.';
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
+      document.getElementById('cd-days').textContent = days;
+      document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+      document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    ['utility-monthly', 'utility-increase', 'solar-monthly', 'solar-escalator', 'solar-initial', 'solar-term'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', render);
+      if (el) el.addEventListener('change', render);
+    });
+
+    document.getElementById('utility-increase').addEventListener('input', function() {
+      let v = parseFloat(this.value);
+      if (v < 5) this.value = 5;
+      if (v > 10) this.value = 10;
+    });
+
+    render();
+  </script>
+</body>
+</html>
