@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Solar T-Chart">
   <title>Solar vs Utility — Financial T-Chart</title>
   <style>
     :root {
@@ -22,21 +25,31 @@
 
     * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      min-height: 100%;
+      min-height: 100dvh;
     }
 
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      font-size: 15px;
+      font-size: 16px;
       color: var(--text);
       background: #edf2f7;
       min-height: 100vh;
+      min-height: 100dvh;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     }
 
     header {
       background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
       color: white;
       padding: 1rem 1.5rem;
+      padding-top: max(1rem, env(safe-area-inset-top));
       text-align: center;
     }
     header h1 {
@@ -53,7 +66,7 @@
     .countdown-banner {
       background: linear-gradient(90deg, #b45309 0%, #d69e2e 50%, #b45309 100%);
       color: #1a1a1a;
-      padding: 0.75rem 1.25rem;
+      padding: 0.85rem 1.25rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -73,14 +86,14 @@
     }
     .countdown-banner .timer-part {
       background: rgba(0,0,0,0.2);
-      padding: 0.35rem 0.6rem;
-      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
       font-variant-numeric: tabular-nums;
-      min-width: 2.2ch;
+      min-width: 2.5ch;
       text-align: center;
     }
     .countdown-banner .timer-part .value {
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       font-weight: 800;
       display: block;
       line-height: 1.2;
@@ -104,17 +117,21 @@
       display: flex;
       justify-content: center;
       gap: 1rem;
-      padding: 0.75rem;
+      padding: 0.85rem 1rem;
       background: #e2e8f0;
       flex-wrap: wrap;
     }
     .toolbar button {
-      padding: 0.5rem 1rem;
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0.65rem 1.25rem;
       border: none;
-      border-radius: 6px;
+      border-radius: 10px;
       font-weight: 600;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 1rem;
+      -webkit-touch-callout: none;
+      touch-action: manipulation;
     }
     .btn-print {
       background: var(--divider);
@@ -127,22 +144,26 @@
     }
     .toolbar button:hover {
       opacity: 0.9;
-      transform: translateY(-1px);
+    }
+    @media (hover: hover) {
+      .toolbar button:hover { transform: translateY(-1px); }
     }
 
     .t-chart-container {
       display: grid;
-      grid-template-columns: 1fr 4px 1fr;
+      grid-template-columns: 1fr 6px 1fr;
       max-width: 1400px;
       margin: 0 auto;
       min-height: calc(100vh - 140px);
+      min-height: calc(100dvh - 140px);
       background: white;
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
 
     .panel {
-      padding: 1rem 1.25rem;
+      padding: 1.25rem 1.5rem;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
     .panel-utility {
       background: var(--utility-bg);
@@ -155,13 +176,13 @@
 
     .divider {
       background: var(--divider);
-      width: 4px;
+      width: 6px;
     }
 
     .panel-title {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
       padding-bottom: 0.5rem;
       border-bottom: 2px solid;
     }
@@ -175,22 +196,24 @@
     }
 
     .input-group {
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
     }
     .input-group label {
       display: block;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       font-weight: 600;
       color: var(--muted);
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.35rem;
     }
     .input-group input {
       width: 100%;
-      padding: 0.6rem 0.75rem;
+      min-height: 44px;
+      padding: 0.75rem 1rem;
       border: 2px solid #e2e8f0;
-      border-radius: 6px;
-      font-size: 1rem;
+      border-radius: 10px;
+      font-size: 16px;
       font-weight: 600;
+      touch-action: manipulation;
     }
     .panel-utility .input-group input:focus {
       border-color: var(--utility-border);
@@ -219,12 +242,12 @@
     .years-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.85rem;
-      margin-top: 1rem;
+      font-size: 0.95rem;
+      margin-top: 1.25rem;
     }
     .years-table th {
       text-align: left;
-      padding: 0.4rem 0.5rem;
+      padding: 0.6rem 0.6rem;
       font-weight: 600;
       border-bottom: 2px solid;
     }
@@ -237,7 +260,7 @@
       border-color: var(--solar-border);
     }
     .years-table td {
-      padding: 0.35rem 0.5rem;
+      padding: 0.5rem 0.6rem;
       border-bottom: 1px solid rgba(0,0,0,0.06);
     }
     .years-table tr.break-even td {
@@ -253,9 +276,9 @@
     }
 
     .summary-box {
-      margin-top: 1.25rem;
-      padding: 1rem;
-      border-radius: 8px;
+      margin-top: 1.5rem;
+      padding: 1.25rem 1rem;
+      border-radius: 10px;
       font-weight: 600;
       text-align: center;
     }
@@ -275,20 +298,21 @@
       margin-bottom: 0.25rem;
     }
     .summary-box .value {
-      font-size: 1.25rem;
+      font-size: 1.35rem;
     }
 
     .savings-banner {
       grid-column: 1 / -1;
       background: linear-gradient(90deg, var(--utility-accent), var(--solar-accent));
       color: white;
-      padding: 1rem 1.5rem;
+      padding: 1.25rem 1.5rem;
+      padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
       text-align: center;
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
     }
     .savings-banner .amount {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       margin-left: 0.5rem;
     }
     .savings-banner .break-even-note {
@@ -304,17 +328,29 @@
       margin-top: 0.5rem;
     }
 
-    @media (max-width: 900px) {
+    /* iPad portrait & small tablets: stack panels for easier touch scrolling */
+    @media (max-width: 768px) {
       .t-chart-container {
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto 4px auto;
+        grid-template-rows: auto auto 6px auto;
       }
       .divider {
         width: 100%;
-        height: 4px;
+        height: 6px;
       }
       .panel-utility { border-right: none; border-bottom: 3px solid var(--utility-border); }
       .panel-solar { border-left: none; border-top: 3px solid var(--solar-border); }
+      .countdown-banner {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+      }
+    }
+
+    /* iPad landscape: keep side-by-side, comfortable reading size */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .panel { padding: 1.25rem 1.25rem; }
+      .years-table { font-size: 0.9rem; }
     }
 
     @media print {
@@ -341,7 +377,7 @@
       <span class="timer-part"><span class="value" id="cd-mins">--</span><span class="label">Min</span></span>
       <span class="timer-part"><span class="value" id="cd-secs">--</span><span class="label">Sec</span></span>
     </div>
-    <span class="deadline" id="countdown-deadline">Deadline: April 5 — After this date, solar only via program or cash (NY State).</span>
+    <span class="deadline" id="countdown-deadline">Deadline: April 5 — After this date, solar only via loan or cash (NY State).</span>
   </div>
 
   <div class="toolbar">
@@ -553,7 +589,7 @@
         document.getElementById('cd-hours').textContent = '0';
         document.getElementById('cd-mins').textContent = '0';
         document.getElementById('cd-secs').textContent = '0';
-        deadlineEl.textContent = 'NY State incentive has ended. Solar is now available only via program or cash purchase.';
+        deadlineEl.textContent = 'NY State incentive has ended. Solar is now available only via loan or cash purchase.';
         return;
       }
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
