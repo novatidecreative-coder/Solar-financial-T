@@ -328,6 +328,412 @@
       margin-top: 0.5rem;
     }
 
+    /* ========== Panel Aesthetics & Video Section ========== */
+    .media-instructions {
+      background: #f0fff4;
+      border: 1px solid var(--solar-border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .media-instructions h2 { margin-top: 0; border-bottom: none; padding-bottom: 0; }
+    .media-intro { margin: 0 0 1rem; color: var(--text); }
+    .media-folders { display: grid; gap: 1rem; margin: 0; }
+    @media (min-width: 600px) { .media-folders { grid-template-columns: repeat(3, 1fr); } }
+    .media-folder {
+      background: white;
+      border-radius: 8px;
+      padding: 1rem;
+      border: 1px solid #e2e8f0;
+    }
+    .media-folder-name { font-weight: 700; font-size: 0.95rem; color: var(--solar-dark); display: block; margin-bottom: 0.25rem; }
+    .media-folder-desc { font-size: 0.85rem; color: var(--muted); display: block; margin-bottom: 0.5rem; }
+    .media-folder ul { margin: 0; padding-left: 1.25rem; font-size: 0.9rem; color: var(--text); }
+    .media-folder code { background: #edf2f7; padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.85rem; }
+    .media-note { margin: 1rem 0 0; font-size: 0.9rem; color: var(--muted); }
+
+    .visual-toggle-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 1.25rem;
+      text-align: center;
+    }
+    .btn-visual-toggle {
+      min-height: 44px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, var(--solar-accent), var(--solar-dark));
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: 0 2px 10px rgba(39, 103, 73, 0.35);
+    }
+    .btn-visual-toggle:hover { opacity: 0.95; }
+    .btn-visual-toggle .arrow { display: inline-block; transition: transform 0.25s ease; }
+    .btn-visual-toggle[aria-expanded="true"] .arrow { transform: rotate(180deg); }
+
+    .visual-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+    }
+    .visual-section-inner {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+    .visual-section-inner.is-open { max-height: 9999px; }
+    .visual-section-content { padding: 1.5rem 1.25rem; }
+
+    .visual-section h2 {
+      font-size: 1.35rem;
+      color: var(--text);
+      margin: 0 0 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--solar-border);
+      color: var(--solar-dark);
+    }
+    .visual-section h3 {
+      font-size: 1.1rem;
+      margin: 1.5rem 0 0.75rem;
+      color: var(--divider);
+    }
+
+    /* Panel comparison */
+    .panel-comparison-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .panel-comparison-wrap { grid-template-columns: 1fr; }
+    }
+    .panel-comparison-side {
+      text-align: center;
+    }
+    .panel-comparison-side h4 {
+      font-size: 1rem;
+      margin: 0 0 0.75rem;
+      color: var(--text);
+    }
+    .panel-img-wrap {
+      position: relative;
+      aspect-ratio: 4/3;
+      background: #f7fafc;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid #e2e8f0;
+    }
+    .panel-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+    }
+    .panel-img-wrap img.zoomed { cursor: zoom-out; object-fit: contain; }
+    .panel-upload-label {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--solar-accent);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .panel-upload-label input { display: none; }
+    .panel-caption {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+    .talking-points {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0;
+      text-align: left;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+    .talking-points li {
+      padding: 0.35rem 0 0.35rem 1.25rem;
+      position: relative;
+    }
+    .talking-points li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--solar-accent);
+      font-weight: bold;
+    }
+    .panel-comparison-side.old-panels .talking-points li::before { color: var(--utility-accent); }
+
+    /* Before/after slider */
+    .before-after-wrap {
+      margin-top: 1.5rem;
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      background: #1a202c;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .before-after-wrap img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .before-after-wrap .after-img {
+      clip-path: inset(0 0 0 50%);
+    }
+    .before-after-handle {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 4px;
+      height: 100%;
+      background: white;
+      cursor: ew-resize;
+      transform: translateX(-50%);
+      z-index: 2;
+      touch-action: none;
+    }
+    .before-after-handle::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .before-after-handle::after {
+      content: "⋮⋮";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 14px;
+      color: #2d3748;
+      letter-spacing: -2px;
+    }
+
+    /* Installation videos */
+    .video-section-title {
+      font-size: 1.25rem;
+      margin: 1.75rem 0 1rem;
+      color: var(--solar-dark);
+      text-align: center;
+    }
+    .video-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid #e2e8f0;
+      margin-bottom: 0;
+    }
+    .video-tabs button {
+      flex: 1;
+      padding: 0.85rem 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      background: #f7fafc;
+      border: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      cursor: pointer;
+      color: var(--muted);
+      touch-action: manipulation;
+    }
+    .video-tabs button.active {
+      background: white;
+      color: var(--solar-dark);
+      border-bottom-color: var(--solar-border);
+    }
+    .video-tab-panel {
+      display: none;
+      padding: 1rem 0;
+    }
+    .video-tab-panel.active { display: block; }
+    .video-player-wrap {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: #1a202c;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .video-player-wrap video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+    .video-play-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .video-play-overlay.hidden { pointer-events: none; opacity: 0; }
+    .video-play-overlay svg {
+      width: 72px;
+      height: 72px;
+      fill: white;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+    }
+    .video-controls-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background: rgba(0,0,0,0.7);
+      margin-top: -4px;
+      border-radius: 0 0 10px 10px;
+    }
+    .video-controls-bar button {
+      min-width: 44px;
+      min-height: 44px;
+      background: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 0.5rem;
+      touch-action: manipulation;
+    }
+    .video-controls-bar button svg { width: 24px; height: 24px; }
+
+    /* Testimonial */
+    .testimonial-section h2 { margin-top: 0; }
+    .testimonial-carousel-wrap {
+      position: relative;
+      margin-top: 1rem;
+    }
+    .testimonial-slide {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .testimonial-slide.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .testimonial-video-wrap {
+      position: relative;
+      aspect-ratio: 16/9;
+      max-width: 700px;
+      margin: 0 auto;
+      background: #1a202c;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 3px solid var(--solar-border);
+    }
+    .testimonial-video-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .testimonial-info {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f0fff4;
+      border-radius: 10px;
+      border-left: 4px solid var(--solar-border);
+    }
+    .testimonial-name { font-weight: 700; font-size: 1.05rem; color: var(--solar-dark); }
+    .testimonial-meta { font-size: 0.9rem; color: var(--muted); margin-top: 0.25rem; }
+    .testimonial-quote {
+      margin-top: 0.75rem;
+      font-style: italic;
+      color: var(--text);
+      font-size: 1rem;
+    }
+    .testimonial-stars {
+      margin-top: 0.5rem;
+      color: #d69e2e;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+    }
+    .testimonial-carousel-nav {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .testimonial-carousel-nav button {
+      min-height: 44px;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: #e2e8f0;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .testimonial-carousel-nav button.active {
+      background: var(--solar-accent);
+      color: white;
+    }
+
+    /* Actions */
+    .visual-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      justify-content: center;
+    }
+    .visual-actions button, .visual-actions a {
+      min-height: 44px;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background: white;
+      color: var(--text);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      touch-action: manipulation;
+    }
+    .visual-actions .btn-share { background: var(--solar-accent); color: white; border-color: var(--solar-accent); }
+
+    /* Zoom overlay */
+    .img-zoom-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .img-zoom-overlay.show { display: flex; }
+    .img-zoom-overlay img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
     /* iPad portrait & small tablets: stack panels for easier touch scrolling */
     @media (max-width: 768px) {
       .t-chart-container {
@@ -353,10 +759,128 @@
       .years-table { font-size: 0.9rem; }
     }
 
+    /* ========== Beat Any Competitor ========== */
+    .competitor-toggle-wrap { max-width: 1400px; margin: 0 auto; padding: 1rem 1.25rem; text-align: center; }
+    .btn-competitor-toggle {
+      min-height: 44px; padding: 0.75rem 1.5rem; font-size: 1rem; font-weight: 600; color: white;
+      background: linear-gradient(135deg, #2b6cb0, #2c5282); border: none; border-radius: 10px;
+      cursor: pointer; touch-action: manipulation; box-shadow: 0 2px 10px rgba(43, 108, 176, 0.35);
+    }
+    .btn-competitor-toggle:hover { opacity: 0.95; }
+    .btn-competitor-toggle .arrow { display: inline-block; transition: transform 0.25s ease; }
+    .btn-competitor-toggle[aria-expanded="true"] .arrow { transform: rotate(180deg); }
+
+    .competitor-section { max-width: 1400px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow: hidden; border: 1px solid #e2e8f0; }
+    .competitor-section-inner { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
+    .competitor-section-inner.is-open { max-height: 9999px; }
+    .competitor-section-content { padding: 1.5rem 1.25rem; }
+
+    .competitor-section h2 { font-size: 1.35rem; color: #2c5282; margin: 0 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #2b6cb0; }
+    .competitor-input-card {
+      background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem; margin-bottom: 1.25rem;
+    }
+    .competitor-input-card label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--muted); margin-bottom: 0.35rem; }
+    .competitor-input-card input, .competitor-input-card select {
+      width: 100%; min-height: 44px; padding: 0.6rem 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px;
+    }
+    .competitor-input-card .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    @media (max-width: 500px) { .competitor-input-card .input-row { grid-template-columns: 1fr; } }
+    .payment-type-row {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; padding: 0.75rem; background: #edf2f7; border-radius: 8px;
+    }
+    .payment-type-row label {
+      display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: white; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; font-weight: 600; flex: 1; min-width: 140px;
+    }
+    .payment-type-row input:checked + span { border-color: #2b6cb0; background: #ebf8ff; color: #2c5282; }
+    .payment-type-row input { display: none; }
+    .payment-type-row label:has(input:checked) { border-color: #2b6cb0; background: #ebf8ff; color: #2c5282; }
+    .competitor-panel { display: none; }
+    .competitor-panel.active { display: block; }
+    .btn-compare { min-height: 44px; padding: 0.75rem 1.5rem; font-size: 1rem; font-weight: 600; background: #2b6cb0; color: white; border: none; border-radius: 8px; cursor: pointer; margin-top: 0.5rem; touch-action: manipulation; }
+    .btn-compare:hover { background: #2c5282; }
+
+    .comparison-table-wrap { overflow-x: auto; margin: 1.25rem 0; border-radius: 10px; border: 1px solid #e2e8f0; }
+    .comparison-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    .comparison-table th { text-align: left; padding: 0.75rem; background: #2d3748; color: white; font-weight: 600; }
+    .comparison-table th.num, .comparison-table td.num { text-align: right; }
+    .comparison-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #e2e8f0; }
+    .comparison-table tr.my-company { background: #f0fff4; font-weight: 600; }
+    .comparison-table tr.my-company td { border-left: 4px solid var(--solar-border); }
+    .comparison-table .diff-bad { color: var(--utility-accent); }
+    .comparison-table .diff-best { color: var(--solar-dark); font-weight: 700; }
+    .savings-highlight-box {
+      background: linear-gradient(135deg, #c6f6d5, #9ae6b4); border: 2px solid var(--solar-border); border-radius: 10px; padding: 1.25rem; margin: 1.25rem 0; text-align: center; font-weight: 600;
+    }
+    .savings-highlight-box .big { font-size: 1.5rem; color: var(--solar-dark); margin-bottom: 0.25rem; }
+    .savings-highlight-box .sub { font-size: 0.95rem; color: var(--text); font-weight: 500; }
+    .talking-points-box { background: #edf2f7; border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+    .talking-points-box h4 { margin: 0 0 0.5rem; font-size: 1rem; color: #2d3748; }
+    .talking-points-box ul { margin: 0; padding-left: 1.25rem; font-size: 0.95rem; color: var(--text); line-height: 1.6; }
+    .nocost-display-toggle { margin-bottom: 0.75rem; }
+    .nocost-display-toggle label { margin-right: 1rem; font-weight: 600; cursor: pointer; }
+
+    /* ========== Address-Based Incentive Calculator ========== */
+    .incentive-toggle-wrap { max-width: 1400px; margin: 0 auto; padding: 1rem 1.25rem; text-align: center; }
+    .btn-incentive-toggle {
+      min-height: 44px; padding: 0.75rem 1.5rem; font-size: 1rem; font-weight: 600; color: white;
+      background: linear-gradient(135deg, #805ad5, #6b46c1); border: none; border-radius: 10px;
+      cursor: pointer; touch-action: manipulation; box-shadow: 0 2px 10px rgba(128, 90, 213, 0.35);
+    }
+    .btn-incentive-toggle:hover { opacity: 0.95; }
+    .btn-incentive-toggle .arrow { display: inline-block; transition: transform 0.25s ease; }
+    .btn-incentive-toggle[aria-expanded="true"] .arrow { transform: rotate(180deg); }
+
+    .incentive-section { max-width: 1400px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow: hidden; border: 1px solid #e2e8f0; }
+    .incentive-section-inner { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
+    .incentive-section-inner.is-open { max-height: 9999px; }
+    .incentive-section-content { padding: 1.5rem 1.25rem; }
+
+    .incentive-section h2 { font-size: 1.35rem; color: #553c9a; margin: 0 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #805ad5; }
+    .incentive-address-card {
+      background: #faf5ff; border: 1px solid #e9d8fd; border-radius: 10px; padding: 1.25rem; margin-bottom: 1.25rem;
+    }
+    .incentive-address-card label { display: block; font-size: 0.9rem; font-weight: 600; color: #553c9a; margin-bottom: 0.35rem; }
+    .incentive-address-card input, .incentive-address-card select {
+      width: 100%; min-height: 44px; padding: 0.6rem 0.75rem; border: 2px solid #e9d8fd; border-radius: 8px; font-size: 16px;
+    }
+    .incentive-address-card .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    @media (max-width: 500px) { .incentive-address-card .input-row { grid-template-columns: 1fr; } }
+    .btn-check-incentives { min-height: 44px; padding: 0.75rem 1.5rem; font-size: 1rem; font-weight: 600; background: #805ad5; color: white; border: none; border-radius: 8px; cursor: pointer; margin-top: 0.75rem; touch-action: manipulation; }
+    .btn-check-incentives:hover { background: #6b46c1; }
+
+    .incentive-nyc-alert {
+      background: linear-gradient(135deg, #f6e05e, #ecc94b); border: 2px solid #d69e2e; border-radius: 10px; padding: 1.25rem; margin: 1.25rem 0; text-align: center;
+    }
+    .incentive-nyc-alert h3 { margin: 0 0 0.5rem; font-size: 1.25rem; color: #744210; }
+    .incentive-nyc-alert p { margin: 0.35rem 0; color: #744210; }
+    .incentive-nyc-alert .only-us { background: rgba(0,0,0,0.08); border-radius: 8px; padding: 0.75rem; margin-top: 0.75rem; font-weight: 700; font-size: 1.05rem; }
+    .incentive-nyc-alert .total-extra { font-size: 1.35rem; font-weight: 800; margin-top: 0.5rem; }
+
+    .incentive-breakdown {
+      background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem; margin: 1.25rem 0;
+    }
+    .incentive-breakdown h4 { margin: 0 0 0.75rem; font-size: 1.05rem; color: #2d3748; }
+    .incentive-breakdown .line { display: flex; justify-content: space-between; padding: 0.35rem 0; border-bottom: 1px solid #e2e8f0; }
+    .incentive-breakdown .line.total { font-weight: 700; font-size: 1.1rem; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 2px solid #2d3748; }
+    .incentive-competitor-warning {
+      background: #fff5f5; border: 1px solid var(--utility-border); border-radius: 10px; padding: 1rem; margin: 1rem 0;
+    }
+    .incentive-competitor-warning h4 { margin: 0 0 0.5rem; color: var(--utility-dark); font-size: 1rem; }
+    .incentive-competitor-warning ul { margin: 0; padding-left: 1.25rem; color: var(--text); font-size: 0.95rem; }
+    .incentive-talking-toggle { margin: 0.5rem 0; padding: 0.6rem 1rem; background: #edf2f7; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; text-align: left; width: 100%; font-size: 0.95rem; }
+    .incentive-talking-toggle:hover { background: #e2e8f0; }
+    .incentive-talking-content { display: none; padding: 1rem; background: white; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 0.75rem; }
+    .incentive-talking-content.show { display: block; }
+    .incentive-talking-content ul { margin: 0; padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.6; color: var(--text); }
+
     @media print {
       body { background: white; }
       .countdown-banner { display: none; }
       .toolbar { display: none; }
+      .visual-toggle-wrap { display: none; }
+      .visual-section { display: none; }
+      .competitor-toggle-wrap { display: none; }
+      .competitor-section { display: none; }
       .t-chart-container { box-shadow: none; }
       .panel { break-inside: avoid; }
       .years-table { font-size: 0.75rem; }
@@ -383,6 +907,12 @@
   <div class="toolbar">
     <button type="button" class="btn-print" onclick="window.print()">Print / Save PDF</button>
     <button type="button" class="btn-reset" onclick="resetInputs()">Reset to Defaults</button>
+    <button type="button" class="btn-visual-toggle" id="btn-visual-toggle" aria-expanded="false" onclick="toggleVisualSection()">
+      Show Panel &amp; Installation Comparison <span class="arrow">▼</span>
+    </button>
+    <button type="button" class="btn-competitor-toggle" id="btn-competitor-toggle" aria-expanded="false" onclick="toggleCompetitorSection()">
+      Beat Any Competitor <span class="arrow">▼</span>
+    </button>
   </div>
 
   <div class="t-chart-container">
@@ -460,6 +990,333 @@
       <span class="amount" id="savings-amount">$0</span>
       <div class="break-even-note" id="break-even-note">Enter values to see break-even year.</div>
     </div>
+  </div>
+
+  <div class="visual-toggle-wrap">
+    <button type="button" class="btn-visual-toggle" id="btn-visual-toggle-bottom" aria-expanded="false" onclick="toggleVisualSection()">
+      Show Panel &amp; Installation Comparison <span class="arrow">▼</span>
+    </button>
+  </div>
+
+  <div class="visual-section" id="visual-section">
+    <div class="visual-section-inner" id="visual-section-inner">
+      <div class="visual-section-content">
+        <!-- All photos and videos: put files in the images/ folder. See "Images & media" below. -->
+        <div class="media-instructions">
+          <h2>Images &amp; media</h2>
+          <p class="media-intro">Insert your photos and videos in the <strong>images</strong> folder next to this file. Use the structure below:</p>
+          <div class="media-folders">
+            <div class="media-folder">
+              <span class="media-folder-name">images/panels/</span>
+              <span class="media-folder-desc">Panel comparison photos</span>
+              <ul>
+                <li><code>old.jpg</code> or <code>old.png</code> — traditional panels</li>
+                <li><code>new.jpg</code> or <code>new.png</code> — modern all-black panels</li>
+              </ul>
+            </div>
+            <div class="media-folder">
+              <span class="media-folder-name">images/installation/</span>
+              <span class="media-folder-desc">Installation &amp; final look videos</span>
+              <ul>
+                <li><code>install.mp4</code> — installation timelapse</li>
+                <li><code>final.mp4</code> — final look (drone/walkthrough)</li>
+              </ul>
+            </div>
+            <div class="media-folder">
+              <span class="media-folder-name">images/testimonials/</span>
+              <span class="media-folder-desc">Customer testimonial videos</span>
+              <ul>
+                <li><code>customer1.mp4</code>, <code>customer2.mp4</code>, <code>customer3.mp4</code></li>
+              </ul>
+            </div>
+          </div>
+          <p class="media-note">You can also use “Use your photo” below to pick images from your device during a pitch.</p>
+        </div>
+
+        <h2>Panel Aesthetics Comparison</h2>
+
+        <div class="panel-comparison-wrap">
+          <div class="panel-comparison-side old-panels">
+            <h4>Old / Traditional Solar Panels</h4>
+            <div class="panel-img-wrap">
+              <img id="panel-old-img" src="images/panels/old.jpg" alt="Old panels" onerror="panelImageFallback(this)">
+            </div>
+            <label class="panel-upload-label">📷 Use your photo <input type="file" id="panel-old-file" accept="image/*"></label>
+            <p class="panel-caption">Bulky Blue Panels with Visible Grid Lines</p>
+            <ul class="talking-points">
+              <li>Thick aluminum frames</li>
+              <li>Visible blue/silver cells</li>
+              <li>Bulky appearance</li>
+              <li>Stands out on roof</li>
+            </ul>
+          </div>
+          <div class="panel-comparison-side">
+            <h4>Modern All-Black Panels</h4>
+            <div class="panel-img-wrap">
+              <img id="panel-new-img" src="images/panels/new.jpg" alt="New panels" onerror="panelImageFallback(this)">
+            </div>
+            <label class="panel-upload-label">📷 Use your photo <input type="file" id="panel-new-file" accept="image/*"></label>
+            <p class="panel-caption">Sleek All-Black Low-Profile Design</p>
+            <ul class="talking-points">
+              <li>Frameless or black frames</li>
+              <li>All-black aesthetics</li>
+              <li>Low-profile sleek design</li>
+              <li>Blends with roof seamlessly</li>
+              <li>Increases home curb appeal</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>Before / After Slider</h3>
+        <div class="before-after-wrap" id="before-after-wrap">
+          <img id="before-after-old" class="before-img" src="images/panels/old.jpg" alt="Before" onerror="beforeAfterImageFallback(this, 'old')">
+          <img id="before-after-new" class="after-img" src="images/panels/new.jpg" alt="After" onerror="beforeAfterImageFallback(this, 'new')">
+          <div class="before-after-handle" id="before-after-handle" role="slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div class="visual-actions">
+          <button type="button" onclick="downloadComparisonImages()">Download comparison images</button>
+          <button type="button" class="btn-share" onclick="shareComparison()">Share this comparison</button>
+        </div>
+
+        <h2 class="video-section-title">See Your Solar Journey: Installation to Beautiful Finish</h2>
+        <div class="video-tabs" role="tablist">
+          <button type="button" role="tab" id="tab-install" aria-selected="true" class="active" onclick="switchInstallVideoTab('install')">Installation Process</button>
+          <button type="button" role="tab" id="tab-final" aria-selected="false" onclick="switchInstallVideoTab('final')">Final Look</button>
+        </div>
+        <div id="tab-panel-install" class="video-tab-panel active">
+          <div class="video-player-wrap">
+            <video id="video-install" preload="metadata" playsinline controls>
+              <source src="images/installation/install.mp4" type="video/mp4">
+              <source src="images/installation/install.webm" type="video/webm">
+              Your browser does not support the video tag.
+            </video>
+            <div class="video-play-overlay" id="overlay-install" onclick="playVideo('video-install', 'overlay-install')">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+        </div>
+        <div id="tab-panel-final" class="video-tab-panel">
+          <div class="video-player-wrap">
+            <video id="video-final" preload="metadata" playsinline controls>
+              <source src="images/installation/final.mp4" type="video/mp4">
+              <source src="images/installation/final.webm" type="video/webm">
+              Your browser does not support the video tag.
+            </video>
+            <div class="video-play-overlay" id="overlay-final" onclick="playVideo('video-final', 'overlay-final')">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <section class="testimonial-section">
+          <h2>Hear From Your Neighbor</h2>
+          <div class="testimonial-carousel-wrap">
+            <div class="testimonial-slide active" data-index="0">
+              <div class="testimonial-video-wrap">
+                <video id="testimonial-video-0" preload="metadata" playsinline controls>
+                  <source src="images/testimonials/customer1.mp4" type="video/mp4">
+                  <source src="images/testimonials/customer1.webm" type="video/webm">
+                </video>
+                <div class="video-play-overlay" id="overlay-test-0" onclick="playVideo('testimonial-video-0', 'overlay-test-0')">
+                  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="testimonial-info">
+                <div class="testimonial-name" id="testimonial-name-0">John &amp; Maria — Westchester, NY</div>
+                <div class="testimonial-meta" id="testimonial-meta-0">8.5 kW system • Installed March 2024</div>
+                <div class="testimonial-quote" id="testimonial-quote-0">"We love how the all-black panels look. No one even notices they're solar."</div>
+                <div class="testimonial-stars">★★★★★</div>
+              </div>
+            </div>
+            <div class="testimonial-slide" data-index="1">
+              <div class="testimonial-video-wrap">
+                <video id="testimonial-video-1" preload="metadata" playsinline controls>
+                  <source src="images/testimonials/customer2.mp4" type="video/mp4">
+                  <source src="images/testimonials/customer2.webm" type="video/webm">
+                </video>
+                <div class="video-play-overlay" id="overlay-test-1" onclick="playVideo('testimonial-video-1', 'overlay-test-1')">
+                  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="testimonial-info">
+                <div class="testimonial-name" id="testimonial-name-1">Customer 2 — Installation was Easy</div>
+                <div class="testimonial-meta" id="testimonial-meta-1">System size • Date</div>
+                <div class="testimonial-quote" id="testimonial-quote-1">"The crew was in and out in one day. Super professional."</div>
+                <div class="testimonial-stars">★★★★★</div>
+              </div>
+            </div>
+            <div class="testimonial-slide" data-index="2">
+              <div class="testimonial-video-wrap">
+                <video id="testimonial-video-2" preload="metadata" playsinline controls>
+                  <source src="images/testimonials/customer3.mp4" type="video/mp4">
+                  <source src="images/testimonials/customer3.webm" type="video/webm">
+                </video>
+                <div class="video-play-overlay" id="overlay-test-2" onclick="playVideo('testimonial-video-2', 'overlay-test-2')">
+                  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="testimonial-info">
+                <div class="testimonial-name" id="testimonial-name-2">Customer 3 — Saving Money Every Month</div>
+                <div class="testimonial-meta" id="testimonial-meta-2">System size • Date</div>
+                <div class="testimonial-quote" id="testimonial-quote-2">"Our electric bill dropped from $400 to almost nothing."</div>
+                <div class="testimonial-stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-carousel-nav">
+            <button type="button" class="active" onclick="goTestimonial(0)" aria-label="Testimonial 1">Love the Look</button>
+            <button type="button" onclick="goTestimonial(1)" aria-label="Testimonial 2">Installation Easy</button>
+            <button type="button" onclick="goTestimonial(2)" aria-label="Testimonial 3">Saving Money</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="competitor-toggle-wrap">
+    <button type="button" class="btn-competitor-toggle" id="btn-competitor-toggle-bottom" aria-expanded="false" onclick="toggleCompetitorSection()">
+      Beat Any Competitor <span class="arrow">▼</span>
+    </button>
+  </div>
+
+  <div class="competitor-section" id="competitor-section">
+    <div class="competitor-section-inner" id="competitor-section-inner">
+      <div class="competitor-section-content">
+        <h2>Beat Any Competitor — Price Comparison</h2>
+
+        <div class="competitor-input-card">
+          <label>Select your company</label>
+          <select id="competitor-my-company">
+            <option value="Momentum Solar">Momentum Solar</option>
+            <option value="Sunrun">Sunrun</option>
+            <option value="Trinity Solar">Trinity Solar</option>
+            <option value="Empower Solar">Empower Solar</option>
+            <option value="SunNation">SunNation</option>
+            <option value="Brooklyn Solar Works">Brooklyn Solar Works</option>
+            <option value="NY State Solar">NY State Solar</option>
+            <option value="Infinity Energy">Infinity Energy</option>
+            <option value="Accord Power Inc">Accord Power Inc</option>
+            <option value="Solar Pros">Solar Pros</option>
+          </select>
+        </div>
+
+        <div class="competitor-input-card incentive-address-card">
+          <label>Homeowner address (for NYC incentives)</label>
+          <input type="text" id="incentive-address" placeholder="e.g. 123 Main St, Queens, NY 11375" autocomplete="street-address">
+          <div class="input-row" style="margin-top:0.75rem;">
+            <div><label>City</label><input type="text" id="incentive-city" placeholder="Queens"></div>
+            <div><label>State</label><select id="incentive-state"><option value="NY" selected>NY</option></select></div>
+          </div>
+          <div class="input-row" style="margin-top:0.75rem;">
+            <div><label>ZIP code</label><input type="text" id="incentive-zip" placeholder="11375" maxlength="10"></div>
+            <div><label>Property tax abatement (4-yr total) — NYC</label><input type="number" id="incentive-abatement" min="0" step="500" value="0" placeholder="e.g. 10000"></div>
+          </div>
+        </div>
+
+        <div class="competitor-input-card">
+          <label>Payment type</label>
+          <div class="payment-type-row">
+            <label><input type="radio" name="competitor-payment" value="cash" checked> <span>Cash deal</span></label>
+            <label><input type="radio" name="competitor-payment" value="finance"> <span>Financing</span></label>
+            <label><input type="radio" name="competitor-payment" value="nocost"> <span>No-cost solar</span></label>
+          </div>
+        </div>
+
+        <div id="competitor-panel-cash" class="competitor-panel active">
+          <div class="competitor-input-card">
+            <label>Total system cost ($)</label>
+            <input type="number" id="comp-cash-total" min="0" step="100" value="25000" placeholder="25000">
+            <div class="input-row" style="margin-top:0.75rem;">
+              <div><label>System size (kW) — optional</label><input type="number" id="comp-cash-kw" min="0" step="0.1" placeholder="10"></div>
+              <div><label>Federal tax credit (%)</label><input type="number" id="comp-cash-credit-pct" min="0" max="100" step="0.1" value="30"></div>
+            </div>
+            <p style="margin-top:0.5rem;font-size:0.85rem;color:var(--muted);">Net cost after credit is calculated automatically.</p>
+          </div>
+        </div>
+
+        <div id="competitor-panel-finance" class="competitor-panel">
+          <div class="competitor-input-card">
+            <label>Total system cost ($)</label>
+            <input type="number" id="comp-finance-total" min="0" step="100" value="30000" placeholder="30000">
+            <div class="input-row" style="margin-top:0.75rem;">
+              <div><label>Monthly payment ($)</label><input type="number" id="comp-finance-monthly" min="0" step="1" value="150" placeholder="150"></div>
+              <div><label>Loan term (years)</label><select id="comp-finance-term"><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="25" selected>25</option></select></div>
+            </div>
+            <div class="input-row" style="margin-top:0.75rem;">
+              <div><label>APR / interest rate (%)</label><input type="number" id="comp-finance-apr" min="0" max="30" step="0.01" value="2.99" placeholder="2.99"></div>
+              <div><label>Down payment ($) — optional</label><input type="number" id="comp-finance-down" min="0" step="500" value="0"></div>
+            </div>
+            <div style="margin-top:0.75rem;"><label>Current electric bill ($/mo) — for savings</label><input type="number" id="comp-finance-electric" min="0" step="1" value="200" placeholder="200"></div>
+          </div>
+        </div>
+
+        <div id="competitor-panel-nocost" class="competitor-panel">
+          <div class="competitor-input-card">
+            <div class="nocost-display-toggle">
+              <label><input type="radio" name="nocost-display" value="kwh" checked> Enter rate (we show monthly payment)</label>
+              <label><input type="radio" name="nocost-display" value="monthly"> Enter monthly payment</label>
+            </div>
+            <label>Monthly solar payment ($)</label>
+            <input type="number" id="comp-nocost-monthly" min="0" step="1" value="95" placeholder="95">
+            <div class="input-row" style="margin-top:0.75rem;">
+              <div><label>Solar rate (e.g. 0.12)</label><input type="number" id="comp-nocost-rate" min="0" step="0.01" value="0.12" placeholder="0.12"></div>
+              <div><label>Current electric bill ($/mo)</label><input type="number" id="comp-nocost-electric" min="0" step="1" value="180" placeholder="180"></div>
+            </div>
+            <div class="input-row" style="margin-top:0.75rem;">
+              <div><label>Contract term (years)</label><select id="comp-nocost-term"><option value="20">20</option><option value="25" selected>25</option></select></div>
+              <div><label>Annual escalator (%)</label><input type="number" id="comp-nocost-escalator" min="0" max="10" step="0.1" value="2.9"></div>
+            </div>
+            <div style="margin-top:0.75rem;"><label>Estimated monthly usage</label><input type="number" id="comp-nocost-kwh" min="0" step="10" value="800" placeholder="800"></div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-compare" onclick="runCompetitorCompare()">Compare prices</button>
+
+        <div id="competitor-results" style="display:none;">
+          <div class="savings-highlight-box" id="competitor-savings-box"></div>
+          <div class="comparison-table-wrap">
+            <table class="comparison-table" id="competitor-table">
+              <thead id="competitor-thead"></thead>
+              <tbody id="competitor-tbody"></tbody>
+            </table>
+          </div>
+
+          <div id="competitor-incentive-block" style="display:none; margin-top:1.5rem;">
+            <div id="incentive-nyc-alert" class="incentive-nyc-alert" style="display:none;"></div>
+            <div class="incentive-breakdown" id="incentive-breakdown"></div>
+            <div id="incentive-competitor-warning" class="incentive-competitor-warning" style="display:none;"></div>
+            <div id="incentive-comparison-table-wrap" style="display:none;" class="comparison-table-wrap">
+              <table class="comparison-table" id="incentive-comparison-table">
+                <thead id="incentive-comp-thead"></thead>
+                <tbody id="incentive-comp-tbody"></tbody>
+              </table>
+            </div>
+            <h4 style="margin-top:1.25rem;margin-bottom:0.5rem;">Incentive talking points</h4>
+            <button type="button" class="incentive-talking-toggle" onclick="toggleIncentiveTalking('why-only-us')">Why only this company?</button>
+            <div id="incentive-talking-why-only-us" class="incentive-talking-content">
+              <ul id="incentive-talking-why-list"></ul>
+            </div>
+            <button type="button" class="incentive-talking-toggle" onclick="toggleIncentiveTalking('tax-abatement')">Property tax abatement explained</button>
+            <div id="incentive-talking-tax-abatement" class="incentive-talking-content">
+              <ul><li>Reduces your property taxes over 4 years.</li><li>Starts after installation.</li><li>We file everything for you.</li></ul>
+            </div>
+            <button type="button" class="incentive-talking-toggle" onclick="toggleIncentiveTalking('rebate')">$5,000 NYS rebate details</button>
+            <div id="incentive-talking-rebate" class="incentive-talking-content">
+              <ul><li>Direct rebate from New York State.</li><li>Processed within 60 days of installation.</li></ul>
+            </div>
+          </div>
+
+          <div class="talking-points-box">
+            <h4>Price talking points</h4>
+            <ul id="competitor-talking-points"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="img-zoom-overlay" id="img-zoom-overlay" onclick="closeImageZoom()">
+    <img id="img-zoom-img" src="" alt="Zoomed">
   </div>
 
   <script>
@@ -615,6 +1472,441 @@
       if (v < 5) this.value = 5;
       if (v > 10) this.value = 10;
     });
+
+    // ========== Panel Aesthetics & Video Section ==========
+    var PLACEHOLDER_PANEL = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23e2e8f0\' width=\'400\' height=\'300\'/%3E%3Ctext fill=\'%23718096\' x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'16\'%3EAdd photo (tap below)%3C/text%3E%3C/svg%3E';
+    var PLACEHOLDER_BEFORE = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'500\' viewBox=\'0 0 800 500\'%3E%3Crect fill=\'%23cbd5e0\' width=\'800\' height=\'500\'/%3E%3Ctext fill=\'%234a5568\' x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'24\'%3EOld panels%3C/text%3E%3C/svg%3E';
+    var PLACEHOLDER_AFTER = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'500\' viewBox=\'0 0 800 500\'%3E%3Crect fill=\'%232d3748\' width=\'800\' height=\'500\'/%3E%3Ctext fill=\'%23fff\' x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'24\'%3ENew panels%3C/text%3E%3C/svg%3E';
+
+    function panelImageFallback(img) {
+      img.onerror = null;
+      img.src = PLACEHOLDER_PANEL;
+    }
+    function beforeAfterImageFallback(img, side) {
+      img.onerror = null;
+      img.src = side === 'old' ? PLACEHOLDER_BEFORE : PLACEHOLDER_AFTER;
+    }
+
+    function toggleVisualSection() {
+      const inner = document.getElementById('visual-section-inner');
+      const isOpen = inner.classList.toggle('is-open');
+      document.getElementById('btn-visual-toggle').setAttribute('aria-expanded', isOpen);
+      document.getElementById('btn-visual-toggle-bottom').setAttribute('aria-expanded', isOpen);
+      if (isOpen) pauseAllVideosWhenOutOfView();
+    }
+
+    function setupPanelImageUpload() {
+      function handleFile(side, inputId, imgId, sliderImgId) {
+        const input = document.getElementById(inputId);
+        const img = document.getElementById(imgId);
+        const sliderImg = document.getElementById(sliderImgId);
+        input.addEventListener('change', function() {
+          const file = this.files && this.files[0];
+          if (!file || !file.type.startsWith('image/')) return;
+          const r = new FileReader();
+          r.onload = function() {
+            img.src = r.result;
+            sliderImg.src = r.result;
+          };
+          r.readAsDataURL(file);
+        });
+      }
+      handleFile('old', 'panel-old-file', 'panel-old-img', 'before-after-old');
+      handleFile('new', 'panel-new-file', 'panel-new-img', 'before-after-new');
+    }
+
+    function setupBeforeAfterSlider() {
+      const wrap = document.getElementById('before-after-wrap');
+      const afterImg = document.getElementById('before-after-new');
+      const handle = document.getElementById('before-after-handle');
+      let pos = 50;
+
+      function setPos(p) {
+        pos = Math.max(0, Math.min(100, p));
+        afterImg.style.clipPath = 'inset(0 0 0 ' + pos + '%)';
+        handle.style.left = pos + '%';
+        handle.setAttribute('aria-valuenow', Math.round(pos));
+      }
+
+      function onMove(clientX) {
+        const rect = wrap.getBoundingClientRect();
+        setPos(((clientX - rect.left) / rect.width) * 100);
+      }
+
+      handle.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        onMove(e.clientX);
+        function move(e) { onMove(e.clientX); }
+        function up() {
+          document.removeEventListener('mousemove', move);
+          document.removeEventListener('mouseup', up);
+        }
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', up);
+      });
+      handle.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        onMove(touch.clientX);
+        function move(e) { onMove(e.touches[0].clientX); }
+        function end() {
+          wrap.removeEventListener('touchmove', move);
+          wrap.removeEventListener('touchend', end);
+        }
+        wrap.addEventListener('touchmove', move, { passive: false });
+        wrap.addEventListener('touchend', end);
+      }, { passive: false });
+    }
+
+    function switchInstallVideoTab(which) {
+      document.querySelectorAll('.video-tabs button').forEach(function(b) { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+      document.querySelectorAll('.video-tab-panel').forEach(function(p) { p.classList.remove('active'); });
+      var tabId = which === 'install' ? 'tab-install' : 'tab-final';
+      var panelId = which === 'install' ? 'tab-panel-install' : 'tab-panel-final';
+      document.getElementById(tabId).classList.add('active');
+      document.getElementById(tabId).setAttribute('aria-selected', 'true');
+      document.getElementById(panelId).classList.add('active');
+      pauseAllVideosInSection();
+    }
+
+    function playVideo(videoId, overlayId) {
+      var v = document.getElementById(videoId);
+      var o = document.getElementById(overlayId);
+      if (!v || !o) return;
+      v.play();
+      o.classList.add('hidden');
+    }
+
+    function setupVideoOverlays() {
+      document.querySelectorAll('.video-player-wrap video').forEach(function(v) {
+        var wrap = v.closest('.video-player-wrap');
+        var overlay = wrap && wrap.querySelector('.video-play-overlay');
+        if (!overlay) return;
+        v.addEventListener('play', function() { overlay.classList.add('hidden'); });
+        v.addEventListener('pause', function() { overlay.classList.remove('hidden'); });
+        v.addEventListener('ended', function() { overlay.classList.remove('hidden'); });
+      });
+    }
+
+    var videoObserver = null;
+    function pauseAllVideosWhenOutOfView() {
+      if (videoObserver) return;
+      videoObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          var v = entry.target;
+          if (!entry.isIntersecting && !v.paused) v.pause();
+        });
+      }, { root: null, threshold: 0.2 });
+      document.querySelectorAll('.visual-section video').forEach(function(v) {
+        videoObserver.observe(v);
+      });
+    }
+    function pauseAllVideosInSection() {
+      document.querySelectorAll('.visual-section video').forEach(function(v) { v.pause(); });
+    }
+
+    var currentTestimonial = 0;
+    function goTestimonial(index) {
+      currentTestimonial = index;
+      document.querySelectorAll('.testimonial-slide').forEach(function(s) { s.classList.remove('active'); });
+      document.querySelectorAll('.testimonial-carousel-nav button').forEach(function(b) { b.classList.remove('active'); });
+      var slide = document.querySelector('.testimonial-slide[data-index="' + index + '"]');
+      var btn = document.querySelector('.testimonial-carousel-nav button:nth-child(' + (index + 1) + ')');
+      if (slide) slide.classList.add('active');
+      if (btn) btn.classList.add('active');
+      document.querySelectorAll('.testimonial-slide video').forEach(function(v) { v.pause(); });
+    }
+
+    function downloadComparisonImages() {
+      var oldImg = document.getElementById('panel-old-img');
+      var newImg = document.getElementById('panel-new-img');
+      if (oldImg && oldImg.src && !oldImg.src.startsWith('data:image/svg')) {
+        var a = document.createElement('a');
+        a.download = 'solar-panels-old.jpg';
+        a.href = oldImg.src;
+        a.click();
+      }
+      if (newImg && newImg.src && !newImg.src.startsWith('data:image/svg')) {
+        var b = document.createElement('a');
+        b.download = 'solar-panels-modern.jpg';
+        b.href = newImg.src;
+        setTimeout(function() { b.click(); }, 100);
+      }
+      if ((!oldImg || !oldImg.src || oldImg.src.startsWith('data:image/svg')) &&
+          (!newImg || !newImg.src || newImg.src.startsWith('data:image/svg'))) {
+        alert('Add your own panel photos first using "Use your photo" above.');
+      }
+    }
+
+    function shareComparison() {
+      var title = 'Solar Panel Comparison — Old vs Modern';
+      var text = 'See the difference between traditional and all-black solar panels.';
+      if (navigator.share) {
+        navigator.share({
+          title: title,
+          text: text,
+          url: window.location.href
+        }).catch(function() {});
+      } else {
+        var u = encodeURIComponent(window.location.href);
+        var t = encodeURIComponent(text + ' ' + window.location.href);
+        window.location.href = 'mailto:?subject=' + encodeURIComponent(title) + '&body=' + t;
+      }
+    }
+
+    function openImageZoom(src) {
+      var el = document.getElementById('img-zoom-img');
+      var overlay = document.getElementById('img-zoom-overlay');
+      if (el && overlay) {
+        el.src = src;
+        overlay.classList.add('show');
+      }
+    }
+    function closeImageZoom() {
+      document.getElementById('img-zoom-overlay').classList.remove('show');
+    }
+
+    document.getElementById('panel-old-img').addEventListener('click', function() {
+      if (this.src && !this.src.startsWith('data:image/svg')) openImageZoom(this.src);
+    });
+    document.getElementById('panel-new-img').addEventListener('click', function() {
+      if (this.src && !this.src.startsWith('data:image/svg')) openImageZoom(this.src);
+    });
+
+    setupPanelImageUpload();
+    setupBeforeAfterSlider();
+    setupVideoOverlays();
+
+    // ========== Address-Based Incentive Calculator ==========
+    var NYC_ZIP_RANGES = [[10001, 10282], [10301, 10314], [10451, 10475], [11004, 11109], [11201, 11256], [11351, 11697]];
+    var NYC_CITY_KEYWORDS = ['queens', 'new york', 'nyc', 'brooklyn', 'bronx', 'manhattan', 'staten island', 'flushing', 'jamaica', 'astoria', 'long island city'];
+
+    function toggleIncentiveTalking(id) {
+      var el = document.getElementById('incentive-talking-' + id);
+      if (el) el.classList.toggle('show');
+    }
+
+    function isNYCAddress() {
+      var zipStr = (document.getElementById('incentive-zip').value || '').replace(/\D/g, '').slice(0, 5);
+      var city = (document.getElementById('incentive-city').value || '').toLowerCase();
+      var address = (document.getElementById('incentive-address').value || '').toLowerCase();
+      var zip = parseInt(zipStr, 10);
+      if (!zip && address) {
+        var match = address.match(/\b(1[0-1][0-9]{3}|112[0-5][0-9]|113[0-5][0-9]|114[0-2][0-9]|116[0-9]{2})\b/);
+        if (match) zip = parseInt(match[1], 10);
+      }
+      if (zip) {
+        for (var i = 0; i < NYC_ZIP_RANGES.length; i++) {
+          if (zip >= NYC_ZIP_RANGES[i][0] && zip <= NYC_ZIP_RANGES[i][1]) return true;
+        }
+      }
+      var combined = city + ' ' + address;
+      for (var j = 0; j < NYC_CITY_KEYWORDS.length; j++) {
+        if (combined.indexOf(NYC_CITY_KEYWORDS[j]) !== -1) return true;
+      }
+      return false;
+    }
+
+    function incentiveFmt(n) { return '$' + (n >= 1000000 ? (n/1e6).toFixed(1) + 'M' : Math.round(n).toLocaleString()); }
+
+    function updateCompetitorIncentiveBlock(companyName) {
+      var abatementInput = parseFloat(document.getElementById('incentive-abatement').value) || 0;
+      var nysRebate = 5000;
+      var isNYC = isNYCAddress();
+      var abatementAmount = isNYC ? (abatementInput > 0 ? abatementInput : 5000) : 0;
+      var totalIncentivesUs = isNYC ? abatementAmount + nysRebate : 0;
+      var missOut = totalIncentivesUs;
+      var block = document.getElementById('competitor-incentive-block');
+      block.style.display = isNYC ? 'block' : 'none';
+      if (!isNYC) return;
+      document.getElementById('incentive-nyc-alert').style.display = 'block';
+      document.getElementById('incentive-nyc-alert').innerHTML =
+        '<h3>⚡ EXCLUSIVE NYC/QUEENS BENEFITS! ⚡</h3>' +
+        '<p>Great news! This property qualifies for:</p>' +
+        '<p>✓ NYC Property Tax Abatement</p>' +
+        '<p>✓ $5,000 NYS Solar Rebate</p>' +
+        '<p class="only-us">🏆 ' + companyName.toUpperCase() + ' IS THE ONLY COMPANY THAT PROVIDES THESE BENEFITS</p>' +
+        '<p class="total-extra">Total additional savings with ' + companyName + ': ' + incentiveFmt(totalIncentivesUs) + '</p>';
+      document.getElementById('incentive-breakdown').innerHTML =
+        '<h4>Incentive package at this address</h4>' +
+        '<div class="line"><span>NYC property tax abatement (4 years)</span><span>' + incentiveFmt(abatementAmount) + '</span></div>' +
+        '<div class="line"><span>NYS solar rebate</span><span>' + incentiveFmt(nysRebate) + '</span></div>' +
+        '<div class="line total"><span>Total incentives (only with ' + companyName + ')</span><span>' + incentiveFmt(totalIncentivesUs) + '</span></div>';
+      document.getElementById('incentive-competitor-warning').style.display = 'block';
+      document.getElementById('incentive-competitor-warning').innerHTML =
+        '<h4>⚠️ Competitor warning</h4>' +
+        '<p>Only ' + companyName + ' provides the property tax abatement and $5,000 state rebate. Other companies do not provide:</p>' +
+        '<ul><li>Property tax abatement</li><li>$5,000 state rebate</li></ul>' +
+        '<p><strong>You\'d miss out on ' + incentiveFmt(missOut) + ' in savings with anyone else!</strong></p>';
+      document.getElementById('incentive-comparison-table-wrap').style.display = 'block';
+      document.getElementById('incentive-comp-thead').innerHTML = '<tr><th>Incentive</th><th class="num">With ' + companyName + '</th><th class="num">With competitor</th></tr>';
+      document.getElementById('incentive-comp-tbody').innerHTML =
+        '<tr><td>Property tax abatement</td><td class="num">✓ ' + incentiveFmt(abatementAmount) + '</td><td class="num">❌ $0</td></tr>' +
+        '<tr><td>NYS rebate</td><td class="num">✓ ' + incentiveFmt(nysRebate) + '</td><td class="num">❌ $0</td></tr>' +
+        '<tr style="font-weight:700;background:#f0fff4;"><td>Total savings</td><td class="num">' + incentiveFmt(totalIncentivesUs) + '</td><td class="num">$0</td></tr>';
+      var whyList = document.getElementById('incentive-talking-why-list');
+      if (whyList) {
+        whyList.innerHTML = '<li>' + companyName + ' is the only company certified to process NYC Property Tax Abatement applications.</li>' +
+          '<li>' + companyName + ' has direct partnership with NYS for the $5,000 rebate program.</li>' +
+          '<li>Other companies don\'t offer the property tax abatement or state rebate because they\'re not licensed in NYC.</li>' +
+          '<li>' + companyName + ' handles all paperwork — you get the savings automatically.</li>';
+      }
+    }
+
+    // ========== Beat Any Competitor ==========
+    var COMPANIES = ['Momentum Solar', 'Sunrun', 'Trinity Solar', 'Empower Solar', 'SunNation', 'Brooklyn Solar Works', 'NY State Solar', 'Infinity Energy', 'Accord Power Inc', 'Solar Pros'];
+    var CASH_PREMIUM = { 'Momentum Solar': 0, 'Sunrun': 0.12, 'Trinity Solar': 0.10, 'Empower Solar': 0.08, 'SunNation': 0.06, 'Brooklyn Solar Works': 0.14, 'NY State Solar': 0.07, 'Infinity Energy': 0.09, 'Accord Power Inc': 0.05, 'Solar Pros': 0.11 };
+    var FINANCE_PREMIUM = { 'Momentum Solar': 0, 'Sunrun': 0.12, 'Trinity Solar': 0.10, 'Empower Solar': 0.08, 'SunNation': 0.05, 'Brooklyn Solar Works': 0.15, 'NY State Solar': 0.07, 'Infinity Energy': 0.09, 'Accord Power Inc': 0.06, 'Solar Pros': 0.11 };
+    var NOCOST_PREMIUM = { 'Momentum Solar': 0, 'Sunrun': 0.17, 'Trinity Solar': 0.25, 'Empower Solar': 0.12, 'SunNation': 0.08, 'Brooklyn Solar Works': 0.20, 'NY State Solar': 0.10, 'Infinity Energy': 0.14, 'Accord Power Inc': 0.06, 'Solar Pros': 0.15 };
+
+    function toggleCompetitorSection() {
+      var inner = document.getElementById('competitor-section-inner');
+      var isOpen = inner.classList.toggle('is-open');
+      document.getElementById('btn-competitor-toggle').setAttribute('aria-expanded', isOpen);
+      document.getElementById('btn-competitor-toggle-bottom').setAttribute('aria-expanded', isOpen);
+    }
+
+    function competitorPaymentChange() {
+      var v = document.querySelector('input[name="competitor-payment"]:checked').value;
+      document.querySelectorAll('.competitor-panel').forEach(function(p) { p.classList.remove('active'); });
+      document.getElementById('competitor-panel-' + v).classList.add('active');
+    }
+    document.querySelectorAll('input[name="competitor-payment"]').forEach(function(r) {
+      r.addEventListener('change', competitorPaymentChange);
+    });
+    competitorPaymentChange();
+
+    function compFmt(n) { return '$' + (n >= 1000000 ? (n/1e6).toFixed(1) + 'M' : Math.round(n).toLocaleString()); }
+    function compFmtDec(n, d) { return '$' + (typeof n === 'number' ? n.toFixed(d || 0) : n); }
+
+    function runCompetitorCompare() {
+      var myCompany = document.getElementById('competitor-my-company').value;
+      var payment = document.querySelector('input[name="competitor-payment"]:checked').value;
+      var thead = document.getElementById('competitor-thead');
+      var tbody = document.getElementById('competitor-tbody');
+      var savingsBox = document.getElementById('competitor-savings-box');
+      var talkingEl = document.getElementById('competitor-talking-points');
+      var resultsDiv = document.getElementById('competitor-results');
+
+      var rows = [];
+      var savingsBoxHtml = '';
+      var talkingPoints = [];
+
+      if (payment === 'cash') {
+        var total = parseFloat(document.getElementById('comp-cash-total').value) || 0;
+        var creditPct = (parseFloat(document.getElementById('comp-cash-credit-pct').value) || 30) / 100;
+        var kw = parseFloat(document.getElementById('comp-cash-kw').value) || 0;
+        var netAfter = total * (1 - creditPct);
+        var perWatt = kw > 0 ? total / (kw * 1000) : 0;
+        rows.push({ company: myCompany, isMy: true, total: total, afterCredit: netAfter, perWatt: perWatt, diff: 'BEST DEAL' });
+        var maxCompetitorAfter = netAfter;
+        COMPANIES.forEach(function(c) {
+          if (c === myCompany) return;
+          var prem = CASH_PREMIUM[c] !== undefined ? CASH_PREMIUM[c] : 0.10;
+          var cTotal = Math.round(total * (1 + prem) / 100) * 100;
+          var cAfter = cTotal * (1 - creditPct);
+          if (cAfter > maxCompetitorAfter) maxCompetitorAfter = cAfter;
+          rows.push({ company: c, isMy: false, total: cTotal, afterCredit: cAfter, perWatt: kw > 0 ? cTotal / (kw * 1000) : 0, diff: '+' + compFmt(cAfter - netAfter) });
+        });
+        var avgAfter = rows.filter(function(r) { return !r.isMy; }).reduce(function(s, r) { return s + r.afterCredit; }, 0);
+        var nComp = rows.length - 1;
+        avgAfter = nComp ? avgAfter / nComp : netAfter;
+        savingsBoxHtml = '<div class="big">💰 SAVE ' + compFmt(avgAfter - netAfter) + '</div><div class="sub">Compared to average competitor</div><div class="sub">You pay: ' + compFmt(netAfter) + ' vs ' + compFmt(avgAfter) + ' avg</div>';
+        talkingPoints = [
+          'You\'ll save ' + compFmt(avgAfter - netAfter) + ' compared to the average competitor.',
+          'Lowest price per watt in the market.',
+          'After tax credit, you\'re paying ' + compFmt(avgAfter - netAfter) + ' less than average.'
+        ];
+        thead.innerHTML = '<tr><th>Company</th><th class="num">Total cost</th><th class="num">After credit</th><th class="num">Price/watt</th><th class="num">Difference</th></tr>';
+        tbody.innerHTML = rows.map(function(r) {
+          var pw = r.perWatt ? '$' + r.perWatt.toFixed(2) : '—';
+          return '<tr class="' + (r.isMy ? 'my-company' : '') + '"><td>' + (r.isMy ? '✓ ' : '') + r.company + '</td><td class="num">' + compFmt(r.total) + '</td><td class="num">' + compFmt(r.afterCredit) + '</td><td class="num">' + pw + '</td><td class="num ' + (r.isMy ? 'diff-best' : 'diff-bad') + '">' + r.diff + '</td></tr>';
+        }).join('');
+      } else if (payment === 'finance') {
+        var monthly = parseFloat(document.getElementById('comp-finance-monthly').value) || 0;
+        var term = parseInt(document.getElementById('comp-finance-term').value, 10) || 25;
+        var apr = parseFloat(document.getElementById('comp-finance-apr').value) || 0;
+        var electric = parseFloat(document.getElementById('comp-finance-electric').value) || 0;
+        var totalPaid = monthly * 12 * term;
+        rows.push({ company: myCompany, isMy: true, monthly: monthly, totalPaid: totalPaid, term: term, apr: apr, diff: 'BEST DEAL', electricSave: electric - monthly });
+        COMPANIES.forEach(function(c) {
+          if (c === myCompany) return;
+          var prem = FINANCE_PREMIUM[c] !== undefined ? FINANCE_PREMIUM[c] : 0.10;
+          var cMonthly = Math.round(monthly * (1 + prem));
+          var cTotal = cMonthly * 12 * term;
+          rows.push({ company: c, isMy: false, monthly: cMonthly, totalPaid: cTotal, term: term, apr: apr, diff: '+' + compFmt(cMonthly - monthly) + '/mo', electricSave: electric - cMonthly });
+        });
+        var avgMonthly = rows.filter(function(r) { return !r.isMy; }).reduce(function(s, r) { return s + r.monthly; }, 0);
+        var nComp = rows.length - 1;
+        avgMonthly = nComp ? avgMonthly / nComp : monthly;
+        var extraOver25 = (avgMonthly - monthly) * 12 * term;
+        savingsBoxHtml = '<div class="big">💰 SAVE ' + compFmt(avgMonthly - monthly) + '/MONTH</div><div class="sub">Over ' + term + ' years: save ' + compFmt(extraOver25) + ' total</div><div class="sub">Plus immediate ' + compFmt(Math.max(0, electric - monthly)) + '/mo savings vs current electric bill</div>';
+        talkingPoints = [
+          'Your monthly payment is ' + compFmt(avgMonthly - monthly) + ' lower than the average competitor.',
+          'Over ' + term + ' years, that\'s ' + compFmt(extraOver25) + ' in savings.',
+          'Plus you\'re saving ' + compFmt(Math.max(0, electric - monthly)) + '/month vs your current electric bill.',
+          'Lock in this rate before financing rates increase.'
+        ];
+        thead.innerHTML = '<tr><th>Company</th><th class="num">Monthly</th><th class="num">Total paid</th><th class="num">Difference</th></tr>';
+        tbody.innerHTML = rows.map(function(r) {
+          return '<tr class="' + (r.isMy ? 'my-company' : '') + '"><td>' + (r.isMy ? '✓ ' : '') + r.company + '</td><td class="num">' + compFmt(r.monthly) + '/mo</td><td class="num">' + compFmt(r.totalPaid) + '</td><td class="num ' + (r.isMy ? 'diff-best' : 'diff-bad') + '">' + r.diff + '</td></tr>';
+        }).join('');
+      } else {
+        var nocostMonthly = parseFloat(document.getElementById('comp-nocost-monthly').value) || 0;
+        var rate = parseFloat(document.getElementById('comp-nocost-rate').value) || 0.12;
+        var electric = parseFloat(document.getElementById('comp-nocost-electric').value) || 0;
+        var term = parseInt(document.getElementById('comp-nocost-term').value, 10) || 25;
+        var kwh = parseFloat(document.getElementById('comp-nocost-kwh').value) || 800;
+        var escalator = (parseFloat(document.getElementById('comp-nocost-escalator').value) || 2.9) / 100;
+        var displayMode = document.querySelector('input[name="nocost-display"]:checked').value;
+        var myMonthlyCost = displayMode === 'monthly' ? nocostMonthly : rate * kwh;
+        var mySavings = electric - myMonthlyCost;
+        rows.push({ company: myCompany, isMy: true, rate: rate, monthly: displayMode === 'monthly' ? nocostMonthly : null, savings: mySavings, diff: 'BEST DEAL' });
+        var MIN_NOCOST_PREMIUM = 0.05;
+        COMPANIES.forEach(function(c) {
+          if (c === myCompany) return;
+          var prem = NOCOST_PREMIUM[c] !== undefined ? NOCOST_PREMIUM[c] : 0.15;
+          prem = Math.max(prem, MIN_NOCOST_PREMIUM);
+          var cRate = rate * (1 + prem);
+          var cMonthly = displayMode === 'monthly' ? Math.round(nocostMonthly * (1 + prem)) : Math.round(cRate * kwh * 100) / 100;
+          var cSavings = electric - (displayMode === 'monthly' ? cMonthly : cRate * kwh);
+          var diffSave = mySavings - cSavings;
+          rows.push({ company: c, isMy: false, rate: cRate, monthly: displayMode === 'monthly' ? cMonthly : null, savings: cSavings, diff: 'Save ' + compFmt(Math.abs(diffSave)) + ' less' });
+        });
+        var avgRate = rows.filter(function(r) { return !r.isMy; }).reduce(function(s, r) { return s + r.rate; }, 0);
+        var nComp = rows.length - 1;
+        avgRate = nComp ? avgRate / nComp : rate;
+        var extra25 = (avgRate - rate) * kwh * 12 * term;
+        var myMonthlyDisplay = displayMode === 'monthly' ? nocostMonthly : rate * kwh;
+        var avgMonthlyDisplay = displayMode === 'monthly' ? nocostMonthly * (avgRate / rate) : avgRate * kwh;
+        savingsBoxHtml = '<div class="big">💰 SAVE ' + compFmt(Math.abs(avgMonthlyDisplay - myMonthlyDisplay)) + '/MONTH MORE</div><div class="sub">Best monthly payment: ' + compFmt(myMonthlyDisplay) + ' vs ' + compFmt(avgMonthlyDisplay) + ' avg competitor</div><div class="sub">Over ' + term + ' years: save ' + compFmt(extra25) + ' extra vs average competitor</div>';
+        talkingPoints = [
+          'Lowest monthly payment — save more every single month.',
+          'Our escalator is only 2.9% vs utility\'s 7–8%.',
+          'Zero upfront cost, immediate savings.',
+          'Over ' + term + ' years, you save ' + compFmt(extra25) + ' more with us than the average competitor.'
+        ];
+        var monthlyColHeader = 'Monthly payment';
+        if (displayMode === 'monthly') {
+          thead.innerHTML = '<tr><th>Company</th><th class="num">' + monthlyColHeader + '</th><th class="num">Your savings</th><th class="num">Difference</th></tr>';
+          tbody.innerHTML = rows.map(function(r) {
+            var mon = r.monthly !== null ? compFmt(r.monthly) : compFmt(r.rate * kwh);
+            return '<tr class="' + (r.isMy ? 'my-company' : '') + '"><td>' + (r.isMy ? '✓ ' : '') + r.company + '</td><td class="num">' + mon + '/mo</td><td class="num">' + compFmt(r.savings) + '/mo</td><td class="num ' + (r.isMy ? 'diff-best' : 'diff-bad') + '">' + r.diff + '</td></tr>';
+          }).join('');
+        } else {
+          thead.innerHTML = '<tr><th>Company</th><th class="num">' + monthlyColHeader + '</th><th class="num">Your savings</th><th class="num">Difference</th></tr>';
+          tbody.innerHTML = rows.map(function(r) {
+            var mon = compFmt(r.rate * kwh);
+            return '<tr class="' + (r.isMy ? 'my-company' : '') + '"><td>' + (r.isMy ? '✓ ' : '') + r.company + '</td><td class="num">' + mon + '/mo</td><td class="num">' + compFmt(r.savings) + '/mo</td><td class="num ' + (r.isMy ? 'diff-best' : 'diff-bad') + '">' + r.diff + '</td></tr>';
+          }).join('');
+        }
+      }
+
+      savingsBox.innerHTML = savingsBoxHtml;
+      talkingEl.innerHTML = talkingPoints.map(function(p) { return '<li>' + p + '</li>'; }).join('');
+      resultsDiv.style.display = 'block';
+      updateCompetitorIncentiveBlock(myCompany);
+    }
 
     render();
   </script>
