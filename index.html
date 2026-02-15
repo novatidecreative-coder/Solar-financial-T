@@ -329,29 +329,6 @@
     }
 
     /* ========== Panel Aesthetics & Video Section ========== */
-    .media-instructions {
-      background: #f0fff4;
-      border: 1px solid var(--solar-border);
-      border-radius: 10px;
-      padding: 1.25rem;
-      margin-bottom: 1.5rem;
-    }
-    .media-instructions h2 { margin-top: 0; border-bottom: none; padding-bottom: 0; }
-    .media-intro { margin: 0 0 1rem; color: var(--text); }
-    .media-folders { display: grid; gap: 1rem; margin: 0; }
-    @media (min-width: 600px) { .media-folders { grid-template-columns: repeat(3, 1fr); } }
-    .media-folder {
-      background: white;
-      border-radius: 8px;
-      padding: 1rem;
-      border: 1px solid #e2e8f0;
-    }
-    .media-folder-name { font-weight: 700; font-size: 0.95rem; color: var(--solar-dark); display: block; margin-bottom: 0.25rem; }
-    .media-folder-desc { font-size: 0.85rem; color: var(--muted); display: block; margin-bottom: 0.5rem; }
-    .media-folder ul { margin: 0; padding-left: 1.25rem; font-size: 0.9rem; color: var(--text); }
-    .media-folder code { background: #edf2f7; padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.85rem; }
-    .media-note { margin: 1rem 0 0; font-size: 0.9rem; color: var(--muted); }
-
     .visual-toggle-wrap {
       max-width: 1400px;
       margin: 0 auto;
@@ -819,6 +796,27 @@
     .nocost-display-toggle { margin-bottom: 0.75rem; }
     .nocost-display-toggle label { margin-right: 1rem; font-weight: 600; cursor: pointer; }
 
+    /* ========== Solar Company Information ========== */
+    .company-profile-btn {
+      min-height: 44px; padding: 0.6rem 1rem; font-size: 0.95rem; font-weight: 600; background: #2c5282; color: white;
+      border: none; border-radius: 8px; cursor: pointer; margin-top: 0.5rem; touch-action: manipulation; display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .company-profile-btn:hover { background: #2b6cb0; }
+    .company-profile-wrap { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; margin-top: 1rem; }
+    .company-profile-wrap.is-open { max-height: 9999px; }
+    .company-profile-block {
+      background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem; margin-bottom: 1rem;
+    }
+    .company-profile-block h3 { font-size: 1.2rem; color: #2c5282; margin: 0 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #2b6cb0; }
+    .company-profile-section { margin: 1.25rem 0 0; }
+    .company-profile-section:first-of-type { margin-top: 0; }
+    .company-profile-section h4 { font-size: 1rem; color: #2d3748; margin: 0 0 0.5rem; font-weight: 700; }
+    .company-profile-section ul { margin: 0; padding-left: 1.25rem; font-size: 0.95rem; line-height: 1.6; color: var(--text); }
+    .company-profile-section p { margin: 0.35rem 0; font-size: 0.95rem; line-height: 1.6; color: var(--text); }
+    .company-profile-section .line { margin: 0.25rem 0; font-size: 0.95rem; }
+    .company-profile-section .star { color: #d69e2e; }
+    .company-profile-hide { margin-top: 0.5rem; font-size: 0.9rem; color: #2b6cb0; font-weight: 600; cursor: pointer; background: none; border: none; padding: 0; }
+
     /* ========== Address-Based Incentive Calculator ========== */
     .incentive-toggle-wrap { max-width: 1400px; margin: 0 auto; padding: 1rem 1.25rem; text-align: center; }
     .btn-incentive-toggle {
@@ -1001,38 +999,6 @@
   <div class="visual-section" id="visual-section">
     <div class="visual-section-inner" id="visual-section-inner">
       <div class="visual-section-content">
-        <!-- All photos and videos: put files in the images/ folder. See "Images & media" below. -->
-        <div class="media-instructions">
-          <h2>Images &amp; media</h2>
-          <p class="media-intro">Insert your photos and videos in the <strong>images</strong> folder next to this file. Use the structure below:</p>
-          <div class="media-folders">
-            <div class="media-folder">
-              <span class="media-folder-name">images/panels/</span>
-              <span class="media-folder-desc">Panel comparison photos</span>
-              <ul>
-                <li><code>old.jpg</code> or <code>old.png</code> — traditional panels</li>
-                <li><code>new.jpg</code> or <code>new.png</code> — modern all-black panels</li>
-              </ul>
-            </div>
-            <div class="media-folder">
-              <span class="media-folder-name">images/installation/</span>
-              <span class="media-folder-desc">Installation &amp; final look videos</span>
-              <ul>
-                <li><code>install.mp4</code> — installation timelapse</li>
-                <li><code>final.mp4</code> — final look (drone/walkthrough)</li>
-              </ul>
-            </div>
-            <div class="media-folder">
-              <span class="media-folder-name">images/testimonials/</span>
-              <span class="media-folder-desc">Customer testimonial videos</span>
-              <ul>
-                <li><code>customer1.mp4</code>, <code>customer2.mp4</code>, <code>customer3.mp4</code></li>
-              </ul>
-            </div>
-          </div>
-          <p class="media-note">You can also use “Use your photo” below to pick images from your device during a pitch.</p>
-        </div>
-
         <h2>Panel Aesthetics Comparison</h2>
 
         <div class="panel-comparison-wrap">
@@ -1198,6 +1164,11 @@
             <option value="Accord Power Inc">Accord Power Inc</option>
             <option value="Solar Pros">Solar Pros</option>
           </select>
+          <button type="button" class="company-profile-btn" id="company-profile-btn" onclick="toggleCompanyProfile()">ℹ️ Learn about <span id="company-profile-btn-name">Momentum Solar</span></button>
+          <div class="company-profile-wrap" id="company-profile-wrap">
+            <div class="company-profile-block" id="company-profile-block"></div>
+            <button type="button" class="company-profile-hide" onclick="toggleCompanyProfile()">Hide company info</button>
+          </div>
         </div>
 
         <div class="competitor-input-card incentive-address-card">
@@ -1755,6 +1726,44 @@
 
     // ========== Beat Any Competitor ==========
     var COMPANIES = ['Momentum Solar', 'Sunrun', 'Trinity Solar', 'Empower Solar', 'SunNation', 'Brooklyn Solar Works', 'NY State Solar', 'Infinity Energy', 'Accord Power Inc', 'Solar Pros'];
+    var COMPANY_PROFILES = {
+      'Momentum Solar': { name: 'Momentum Solar', founded: 2009, years: 16, headquarters: 'Monmouth Junction, New Jersey', serviceArea: 'NJ, NY, PA, CT, FL, TX, CA', employees: '2,000+', installations: '50,000+', recognition: ['BBB Accredited Business - A+ Rating', '4.2/5 Stars - Based on 3,400+ Reviews', 'One of the Fastest Growing Solar Companies', '16 Years of Proven Solar Excellence'], quality: ['Tier 1 Solar Panel Manufacturers', '25-Year Equipment Warranty', '10-Year Workmanship Guarantee', 'Professional In-House Installation Teams', 'Tesla Powerwall & Enphase Battery Options', 'Advanced Solar Monitoring Systems', 'Multiple Financing Solutions Available'], customerBenefits: ['Fast installation timelines (2-4 weeks)', 'Competitive pricing in their markets', 'Professional and efficient installation', 'Helpful and knowledgeable sales team', 'Smooth permitting and approval process', 'Multiple flexible financing options', 'Strong presence across Northeast region', 'Quality equipment from trusted brands', 'Comprehensive warranty coverage', 'Experienced with local regulations'], mission: 'Momentum Solar is committed to making clean energy accessible and affordable for homeowners across America. With a focus on quality installations and customer satisfaction, they\'ve grown to become one of the leading residential solar providers.', whyChoose: ['16 years of solar industry experience', '50,000+ satisfied homeowners', 'Proven track record across 7 states', 'Strong financial backing and stability', 'Comprehensive 25-year warranty protection', 'Expert installation and ongoing support'] },
+      'Sunrun': { name: 'Sunrun', founded: 2007, years: 18, headquarters: 'San Francisco, California', serviceArea: '22 States Nationwide', employees: '8,000+', installations: '900,000+', recognition: ['#1 Residential Solar Company in America', 'BBB Accredited Business', '900,000+ Systems Installed', 'Industry Leader in Solar Innovation'], quality: ['Premium Tier 1 Solar Panels', '25-Year Performance Guarantee', 'In-House Certified Installation Teams', 'Leading Battery Storage Solutions', 'Advanced mySunrun Monitoring App', 'Flexible Financing: Lease, PPA, Loan, Cash', 'Brightbox™ Battery System Available'], customerBenefits: ['Largest residential solar provider', 'Nationwide service and support network', 'Innovative solar + storage solutions', 'Multiple financing options for flexibility', 'Professional in-house installation crews', 'Strong financial stability (public company)', 'Comprehensive monitoring and support', 'Experience with diverse home types', 'Proven track record with 900K+ installs', 'Industry-leading warranty coverage'], mission: 'Sunrun is pioneering a planet run by the sun, creating a future where clean, affordable energy is accessible to all. As America\'s #1 residential solar company, they\'re leading the clean energy revolution one home at a time.', whyChoose: ['18 years as an industry leader', '900,000+ satisfied homeowners nationwide', 'Largest residential solar company in US', 'Publicly traded with strong financials', 'Nationwide service network for support', 'Innovative solar + battery solutions'] },
+      'Trinity Solar': { name: 'Trinity Solar', founded: 1994, years: 31, headquarters: 'Iselin, New Jersey', serviceArea: 'NJ, NY, PA, CT, MA, RI', employees: '1,500+', installations: '100,000+', recognition: ['BBB A+ Rating', 'Over 30 Years in Solar', 'Top Northeast Installer', 'Trusted Regional Leader'], quality: ['Tier 1 Panels', '25-Year Warranty', 'In-House Installation', 'Battery Options', 'Strong Workmanship Guarantee'], customerBenefits: ['Decades of local experience', 'Professional installation teams', 'Competitive pricing', 'Excellent customer service', 'Smooth process from start to finish', 'Knowledgeable sales team', 'Strong warranty coverage', 'Quality equipment', 'Great communication', 'Transparent process'], mission: 'Trinity Solar has been powering homes with clean energy for over three decades, with a commitment to quality and customer satisfaction across the Northeast.', whyChoose: ['31 years of solar experience', '100,000+ satisfied customers', 'Northeast regional expert', 'Proven stability and longevity', 'Comprehensive warranty protection', 'Expert local support'] },
+      'Empower Solar': { name: 'Empower Solar', founded: 2012, years: 13, headquarters: 'Long Island, New York', serviceArea: 'NY, NJ, CT', employees: '200+', installations: '15,000+', recognition: ['BBB Accredited', 'Strong Local Reputation', 'Quality Focus', 'Customer-First Approach'], quality: ['Tier 1 Manufacturers', '25-Year Equipment Warranty', '10-Year Workmanship', 'Battery Storage Options', 'Professional Crews'], customerBenefits: ['Local expertise in NY/NJ/CT', 'Fast professional installation', 'Competitive pricing', 'Excellent communication', 'Quality equipment', 'Smooth permitting', 'Strong customer support', 'Flexible financing', 'Knowledgeable team', 'Transparent process'], mission: 'Empower Solar is dedicated to empowering homeowners with clean, affordable solar energy and exceptional service in the tri-state area.', whyChoose: ['13 years of experience', '15,000+ satisfied customers', 'Regional specialist', 'Quality installations', 'Strong warranties', 'Responsive support'] },
+      'SunNation': { name: 'SunNation', founded: 2011, years: 14, headquarters: 'Ronkonkoma, New York', serviceArea: 'NY, NJ', employees: '150+', installations: '12,000+', recognition: ['BBB A Rating', 'Long Island Solar Leader', 'Quality Installations', 'Trusted Local Provider'], quality: ['Tier 1 Panels', '25-Year Warranty', 'Professional Installation', 'Battery Options', 'Financing Available'], customerBenefits: ['Local Long Island and NY expertise', 'Professional installation', 'Competitive pricing', 'Great customer service', 'Smooth process', 'Quality equipment', 'Strong warranty', 'Knowledgeable team', 'Clear communication', 'Satisfied customers'], mission: 'SunNation brings affordable solar solutions to New York homeowners with a focus on quality and customer satisfaction.', whyChoose: ['14 years in solar', '12,000+ installations', 'NY/NJ specialist', 'Proven track record', 'Warranty protection', 'Local support'] },
+      'Brooklyn Solar Works': { name: 'Brooklyn Solar Works', founded: 2014, years: 11, headquarters: 'Brooklyn, New York', serviceArea: 'NYC, NY Metro', employees: '75+', installations: '5,000+', recognition: ['NYC Solar Specialist', 'BBB Accredited', 'Local Community Focus', 'Quality Brooklyn Installer'], quality: ['Tier 1 Panels', 'Strong Warranties', 'NYC Permitting Expertise', 'In-House Crews', 'Battery Options'], customerBenefits: ['NYC and borough expertise', 'Fast professional installation', 'Knowledgeable about local regulations', 'Competitive pricing', 'Great communication', 'Quality equipment', 'Smooth permitting process', 'Strong customer service', 'Transparent pricing', 'Satisfied NYC homeowners'], mission: 'Brooklyn Solar Works is committed to bringing solar to NYC homeowners with local expertise and quality installations.', whyChoose: ['11 years serving NYC', '5,000+ NYC installations', 'Borough permitting experts', 'Local crew and support', 'Quality and warranty', 'Community trusted'] },
+      'NY State Solar': { name: 'NY State Solar', founded: 2013, years: 12, headquarters: 'New York', serviceArea: 'New York State', employees: '100+', installations: '8,000+', recognition: ['NY State Focus', 'BBB Accredited', 'Quality Installer', 'Regional Reputation'], quality: ['Tier 1 Panels', '25-Year Warranty', 'Professional Installation', 'Financing Options', 'Workmanship Guarantee'], customerBenefits: ['New York State specialist', 'Professional installation', 'Competitive pricing', 'Excellent service', 'Smooth process', 'Quality equipment', 'Strong warranty', 'Knowledgeable team', 'Great communication', 'Satisfied customers'], mission: 'NY State Solar is dedicated to helping New York homeowners go solar with quality and service.', whyChoose: ['12 years in NY', '8,000+ installations', 'State-wide expertise', 'Quality and warranty', 'Proven track record', 'Responsive support'] },
+      'Infinity Energy': { name: 'Infinity Energy', founded: 2010, years: 15, headquarters: 'New Jersey', serviceArea: 'NJ, NY, PA', employees: '180+', installations: '10,000+', recognition: ['BBB Accredited', 'Tri-State Leader', 'Quality Focus', 'Customer Satisfaction'], quality: ['Tier 1 Panels', '25-Year Warranty', 'Professional Crews', 'Battery Options', 'Financing Available'], customerBenefits: ['Tri-state expertise', 'Fast professional installation', 'Competitive pricing', 'Excellent customer service', 'Smooth process', 'Quality equipment', 'Strong warranty', 'Knowledgeable team', 'Great communication', 'Transparent process'], mission: 'Infinity Energy delivers clean energy solutions with a commitment to quality and customer satisfaction across the tri-state area.', whyChoose: ['15 years of experience', '10,000+ satisfied customers', 'Tri-state specialist', 'Quality installations', 'Warranty protection', 'Expert support'] },
+      'Accord Power Inc': { name: 'Accord Power Inc', founded: 2009, years: 16, headquarters: 'New York', serviceArea: 'NY, NJ, CT', employees: '120+', installations: '7,000+', recognition: ['BBB Accredited', 'Quality Installer', 'Regional Reputation', 'Customer First'], quality: ['Tier 1 Panels', '25-Year Warranty', 'Professional Installation', 'Workmanship Guarantee', 'Financing Options'], customerBenefits: ['Professional installation', 'Competitive pricing', 'Excellent service', 'Smooth process', 'Quality equipment', 'Strong warranty', 'Knowledgeable team', 'Great communication', 'Flexible financing', 'Satisfied customers'], mission: 'Accord Power Inc is committed to providing quality solar solutions and exceptional service to homeowners in the region.', whyChoose: ['16 years in solar', '7,000+ installations', 'Regional experience', 'Quality and warranty', 'Proven track record', 'Responsive support'] },
+      'Solar Pros': { name: 'Solar Pros', founded: 2012, years: 13, headquarters: 'New York', serviceArea: 'NY, NJ', employees: '90+', installations: '6,000+', recognition: ['BBB Accredited', 'Quality Focus', 'Customer Satisfaction', 'Regional Provider'], quality: ['Tier 1 Panels', '25-Year Warranty', 'Professional Installation', 'Warranty Coverage', 'Financing Available'], customerBenefits: ['Professional installation', 'Competitive pricing', 'Excellent customer service', 'Smooth process from start to finish', 'Quality equipment', 'Strong warranty', 'Knowledgeable team', 'Great communication', 'Transparent process', 'Satisfied homeowners'], mission: 'Solar Pros is dedicated to helping homeowners go solar with quality installations and customer-first service.', whyChoose: ['13 years of experience', '6,000+ installations', 'Regional expertise', 'Quality and warranty', 'Proven track record', 'Expert support'] }
+    };
+    function toggleCompanyProfile() {
+      var wrap = document.getElementById('company-profile-wrap');
+      var isOpen = wrap.classList.toggle('is-open');
+      if (isOpen) renderCompanyProfile();
+    }
+    function updateCompanyProfileButton() {
+      var name = document.getElementById('competitor-my-company').value;
+      document.getElementById('company-profile-btn-name').textContent = name;
+      var wrap = document.getElementById('company-profile-wrap');
+      if (wrap.classList.contains('is-open')) renderCompanyProfile();
+    }
+    function renderCompanyProfile() {
+      var name = document.getElementById('competitor-my-company').value;
+      var c = COMPANY_PROFILES[name];
+      if (!c) return;
+      var block = document.getElementById('company-profile-block');
+      var overview = '<div class="company-profile-section"><h4>📋 Company overview</h4><div class="line">Established: ' + c.founded + ' — ' + c.years + ' years of excellence</div><div class="line">Headquarters: ' + c.headquarters + '</div><div class="line">Service area: ' + c.serviceArea + '</div><div class="line">Installations: ' + c.installations + ' satisfied customers</div>' + (c.employees ? '<div class="line">Team: ' + c.employees + ' solar professionals</div>' : '') + '</div>';
+      var rec = '<div class="company-profile-section"><h4>🏆 Industry recognition</h4><ul>' + (c.recognition || []).map(function(r) { return '<li><span class="star">⭐</span> ' + r + '</li>'; }).join('') + '</ul></div>';
+      var qual = '<div class="company-profile-section"><h4>💎 Quality & expertise</h4><ul>' + (c.quality || []).map(function(q) { return '<li>✓ ' + q + '</li>'; }).join('') + '</ul></div>';
+      var cust = '<div class="company-profile-section"><h4>⭐ What customers appreciate</h4><ul>' + (c.customerBenefits || []).map(function(b) { return '<li>✓ ' + b + '</li>'; }).join('') + '</ul></div>';
+      var miss = '<div class="company-profile-section"><h4>🎯 Company mission & values</h4><p>' + (c.mission || '') + '</p></div>';
+      var why = '<div class="company-profile-section"><h4>🌟 Why choose ' + c.name + '</h4><ul>' + (c.whyChoose || []).map(function(w) { return '<li>• ' + w + '</li>'; }).join('') + '</ul></div>';
+      block.innerHTML = '<h3>ℹ️ About ' + c.name + '</h3>' + overview + rec + qual + cust + miss + why;
+    }
+    document.getElementById('competitor-my-company').addEventListener('change', updateCompanyProfileButton);
+
     var CASH_PREMIUM = { 'Momentum Solar': 0, 'Sunrun': 0.12, 'Trinity Solar': 0.10, 'Empower Solar': 0.08, 'SunNation': 0.06, 'Brooklyn Solar Works': 0.14, 'NY State Solar': 0.07, 'Infinity Energy': 0.09, 'Accord Power Inc': 0.05, 'Solar Pros': 0.11 };
     var FINANCE_PREMIUM = { 'Momentum Solar': 0, 'Sunrun': 0.12, 'Trinity Solar': 0.10, 'Empower Solar': 0.08, 'SunNation': 0.05, 'Brooklyn Solar Works': 0.15, 'NY State Solar': 0.07, 'Infinity Energy': 0.09, 'Accord Power Inc': 0.06, 'Solar Pros': 0.11 };
     var NOCOST_PREMIUM = { 'Momentum Solar': 0, 'Sunrun': 0.17, 'Trinity Solar': 0.25, 'Empower Solar': 0.12, 'SunNation': 0.08, 'Brooklyn Solar Works': 0.20, 'NY State Solar': 0.10, 'Infinity Energy': 0.14, 'Accord Power Inc': 0.06, 'Solar Pros': 0.15 };
